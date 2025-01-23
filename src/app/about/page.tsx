@@ -20,12 +20,12 @@ export default function About() {
         <h2 className="mb-4 text-2xl font-semibold">Professional Summary</h2>
         <p className="mb-4 text-gray-600">
           I am a passionate Full Stack Developer with experience in building modern web applications.
-          My journey in software development started [Your Background] and I've been creating
+          My journey in software development started [Your Background] and I&apos;ve been creating
           innovative solutions ever since.
         </p>
         <p className="text-gray-600">
           I specialize in creating responsive, user-friendly applications with clean,
-          maintainable code. I'm always eager to learn new technologies and tackle
+          maintainable code. I&apos;m always eager to learn new technologies and tackle
           challenging problems.
         </p>
       </div>

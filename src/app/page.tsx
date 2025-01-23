@@ -1,52 +1,53 @@
-import Image from "next/image";
-import Link from "next/link";
+import Button from '@/components/Button';
+import Section from '@/components/Section';
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center space-y-12 py-16">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold md:text-6xl">
-          Hi, I'm <span className="text-blue-600">Your Name</span>
-        </h1>
-        <p className="mb-8 text-xl text-gray-600">
-          Full Stack Developer | Designer | Problem Solver
-        </p>
-        <div className="flex justify-center gap-4">
-          <Link
-            href="/projects"
-            className="rounded-lg bg-blue-600 px-6 py-3 text-white transition-colors hover:bg-blue-700"
-          >
-            View My Work
-          </Link>
-          <Link
-            href="/contact"
-            className="rounded-lg border border-blue-600 px-6 py-3 text-blue-600 transition-colors hover:bg-blue-50"
-          >
-            Contact Me
-          </Link>
+    <>
+      <Section className="pt-24">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-5xl font-bold mb-6">
+            Hi, I&apos;m Sam Littrell 👋
+          </h1>
+          <p className="text-xl text-gray-600 mb-8">
+            A passionate software developer crafting beautiful and functional web experiences
+          </p>
+          <div className="flex gap-4 justify-center">
+            <Button href="/projects" variant="primary">
+              View My Work
+            </Button>
+            <Button href="/contact" variant="outline">
+              Get in Touch
+            </Button>
+          </div>
         </div>
-      </div>
+      </Section>
 
-      <div className="grid gap-8 md:grid-cols-3">
-        <div className="rounded-lg border p-6 text-center">
-          <h2 className="mb-2 text-xl font-semibold">Frontend Development</h2>
-          <p className="text-gray-600">
-            Creating beautiful and responsive user interfaces with modern technologies.
-          </p>
+      <Section 
+        title="What I Do" 
+        subtitle="I specialize in building modern web applications with cutting-edge technologies"
+      >
+        <div className="grid md:grid-cols-3 gap-8">
+          <div className="p-6 bg-white rounded-lg shadow-lg">
+            <h3 className="text-xl font-bold mb-3">Frontend Development</h3>
+            <p className="text-gray-600">
+              Creating responsive and intuitive user interfaces using React, Next.js, and modern CSS
+            </p>
+          </div>
+          <div className="p-6 bg-white rounded-lg shadow-lg">
+            <h3 className="text-xl font-bold mb-3">Backend Development</h3>
+            <p className="text-gray-600">
+              Building scalable server-side applications and APIs with Node.js and modern frameworks
+            </p>
+          </div>
+          <div className="p-6 bg-white rounded-lg shadow-lg">
+            <h3 className="text-xl font-bold mb-3">UI/UX Design</h3>
+            <p className="text-gray-600">
+              Designing beautiful and functional user experiences that delight users
+            </p>
+          </div>
         </div>
-        <div className="rounded-lg border p-6 text-center">
-          <h2 className="mb-2 text-xl font-semibold">Backend Development</h2>
-          <p className="text-gray-600">
-            Building robust and scalable server-side applications.
-          </p>
-        </div>
-        <div className="rounded-lg border p-6 text-center">
-          <h2 className="mb-2 text-xl font-semibold">UI/UX Design</h2>
-          <p className="text-gray-600">
-            Designing intuitive and user-friendly experiences.
-          </p>
-        </div>
-      </div>
-    </div>
+      </Section>
+    </>
   );
 }

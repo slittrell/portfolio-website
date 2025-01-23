@@ -1,90 +1,40 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Section from '@/components/Section';
+import ProjectCard from '@/components/ProjectCard';
 
-interface Project {
-  title: string;
-  description: string;
-  technologies: string[];
-  imageUrl: string;
-  demoUrl: string;
-  githubUrl: string;
-}
-
-const projects: Project[] = [
+const projects = [
   {
     title: 'Project One',
-    description: 'A full-stack web application that helps users manage their tasks and stay organized.',
-    technologies: ['React', 'Node.js', 'MongoDB', 'Express'],
-    imageUrl: '/project1.jpg',
-    demoUrl: 'https://project1.demo',
-    githubUrl: 'https://github.com/yourusername/project1',
+    description: 'A modern web application built with Next.js and TypeScript.',
+    imageUrl: '/projects/project1.jpg',
+    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+    liveUrl: 'https://project1.com',
+    githubUrl: 'https://github.com/yourusername/project1'
   },
   {
     title: 'Project Two',
-    description: 'An e-commerce platform built with modern web technologies.',
-    technologies: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL'],
-    imageUrl: '/project2.jpg',
-    demoUrl: 'https://project2.demo',
-    githubUrl: 'https://github.com/yourusername/project2',
+    description: 'A full-stack application with real-time features.',
+    imageUrl: '/projects/project2.jpg',
+    technologies: ['React', 'Node.js', 'Socket.IO'],
+    liveUrl: 'https://project2.com',
+    githubUrl: 'https://github.com/yourusername/project2'
   },
   // Add more projects as needed
 ];
 
 export default function Projects() {
   return (
-    <div className="mx-auto max-w-6xl">
-      <h1 className="mb-8 text-4xl font-bold">My Projects</h1>
-      
-      <div className="grid gap-8 md:grid-cols-2">
+    <Section
+      title="My Projects"
+      subtitle="Here are some of the projects I've worked on"
+    >
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {projects.map((project) => (
-          <div
+          <ProjectCard
             key={project.title}
-            className="overflow-hidden rounded-lg border transition-transform hover:scale-[1.02]"
-          >
-            <div className="relative h-48 w-full">
-              <Image
-                src={project.imageUrl}
-                alt={project.title}
-                fill
-                className="object-cover"
-              />
-            </div>
-            
-            <div className="p-6">
-              <h3 className="mb-2 text-xl font-semibold">{project.title}</h3>
-              <p className="mb-4 text-gray-600">{project.description}</p>
-              
-              <div className="mb-4 flex flex-wrap gap-2">
-                {project.technologies.map((tech) => (
-                  <span
-                    key={tech}
-                    className="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              
-              <div className="flex gap-4">
-                <Link
-                  href={project.demoUrl}
-                  target="_blank"
-                  className="rounded bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700"
-                >
-                  Live Demo
-                </Link>
-                <Link
-                  href={project.githubUrl}
-                  target="_blank"
-                  className="rounded border border-gray-300 px-4 py-2 transition-colors hover:bg-gray-50"
-                >
-                  View Code
-                </Link>
-              </div>
-            </div>
-          </div>
+            {...project}
+          />
         ))}
       </div>
-    </div>
+    </Section>
   );
 } 

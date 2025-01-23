@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import Section from '@/components/Section';
+import Button from '@/components/Button';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -41,39 +43,14 @@ export default function Contact() {
   ];
 
   return (
-    <div className="mx-auto max-w-4xl">
-      <h1 className="mb-8 text-4xl font-bold">Contact Me</h1>
-
-      <div className="mb-12">
-        <p className="text-gray-600">
-          I'm always interested in hearing about new projects and opportunities.
-          Feel free to reach out!
-        </p>
-      </div>
-
-      <div className="mb-12">
-        <h2 className="mb-4 text-2xl font-semibold">Social Links</h2>
-        <div className="flex gap-4">
-          {socialLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-lg border p-3 transition-colors hover:bg-gray-50"
-            >
-              <span>{link.icon}</span>
-              {link.name}
-            </a>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <h2 className="mb-4 text-2xl font-semibold">Send a Message</h2>
+    <Section
+      title="Get in Touch"
+      subtitle="Have a question or want to work together? Feel free to reach out!"
+    >
+      <div className="max-w-2xl mx-auto">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="name" className="mb-2 block text-sm font-medium text-gray-700">
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
               Name
             </label>
             <input
@@ -82,13 +59,13 @@ export default function Contact() {
               name="name"
               value={formData.name}
               onChange={handleChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               required
-              className="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
 
           <div>
-            <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-700">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
               Email
             </label>
             <input
@@ -97,13 +74,13 @@ export default function Contact() {
               name="email"
               value={formData.email}
               onChange={handleChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               required
-              className="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
 
           <div>
-            <label htmlFor="message" className="mb-2 block text-sm font-medium text-gray-700">
+            <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
               Message
             </label>
             <textarea
@@ -111,20 +88,37 @@ export default function Contact() {
               name="message"
               value={formData.message}
               onChange={handleChange}
+              rows={5}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               required
-              rows={6}
-              className="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-            />
+            ></textarea>
           </div>
 
-          <button
-            type="submit"
-            className="rounded-lg bg-blue-600 px-6 py-3 text-white transition-colors hover:bg-blue-700"
-          >
+          <Button type="submit" variant="primary" className="w-full">
             Send Message
-          </button>
+          </Button>
         </form>
+
+        <div className="mt-12 text-center">
+          <h3 className="text-xl font-bold mb-4">Or connect with me on:</h3>
+          <div className="flex justify-center gap-4">
+            <Button
+              href={socialLinks[0].url}
+              variant="outline"
+              className="flex-1 max-w-[200px]"
+            >
+              GitHub
+            </Button>
+            <Button
+              href={socialLinks[1].url}
+              variant="outline"
+              className="flex-1 max-w-[200px]"
+            >
+              LinkedIn
+            </Button>
+          </div>
+        </div>
       </div>
-    </div>
+    </Section>
   );
 } 
