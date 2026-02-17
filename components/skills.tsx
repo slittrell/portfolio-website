@@ -28,7 +28,7 @@ function SkillChip({
               transition: {
                 delay: reduceMotion ? 0 : index * 0.05,
                 duration: reduceMotion ? 0 : 0.4,
-                ease: [0.25, 0.4, 0.25, 1],
+                ease: [0.25, 0.4, 0.25, 1] as const,
               },
             }
           : { opacity: 0, y: 16 }
@@ -57,7 +57,7 @@ export default function Skills() {
       transition: {
         delay: reduceMotion ? 0 : delay,
         duration: reduceMotion ? 0 : 0.5,
-        ease: [0.25, 0.4, 0.25, 1],
+        ease: [0.25, 0.4, 0.25, 1] as const,
       },
     }),
   };

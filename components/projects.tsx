@@ -28,7 +28,7 @@ function ProjectCard({
               transition: {
                 delay: reduceMotion ? 0 : 0.2 + index * 0.15,
                 duration: reduceMotion ? 0 : 0.5,
-                ease: [0.25, 0.4, 0.25, 1],
+                ease: [0.25, 0.4, 0.25, 1] as const,
               },
             }
           : { opacity: 0, y: 30 }
@@ -107,7 +107,7 @@ export default function Projects() {
       transition: {
         delay: reduceMotion ? 0 : delay,
         duration: reduceMotion ? 0 : 0.5,
-        ease: [0.25, 0.4, 0.25, 1],
+        ease: [0.25, 0.4, 0.25, 1] as const,
       },
     }),
   };
