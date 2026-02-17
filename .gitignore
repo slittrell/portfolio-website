@@ -1,0 +1,25 @@
+# dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+next-env.d.ts
+
+# Firebase
+.firebase/
+
+# package locks (project uses pnpm)
+package-lock.json
+yarn.lock
+
+# env
+.env
+.env*.local
+
+# OS
+.DS_Store
+
+# editors
+.vscode/
+.idea/
