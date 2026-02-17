@@ -1,59 +1,69 @@
-import Image from 'next/image';
-import Button from './Button';
+"use client";
+
+import { AnimateIn } from "./AnimateIn";
 
 interface ProjectCardProps {
   title: string;
   description: string;
-  imageUrl: string;
-  technologies: string[];
-  liveUrl?: string;
-  githubUrl?: string;
+  tags: string[];
+  href?: string;
+  delay?: number;
 }
 
-export default function ProjectCard({
+export function ProjectCard({
   title,
   description,
-  imageUrl,
-  technologies,
-  liveUrl,
-  githubUrl
+  tags,
+  href,
+  delay = 0,
 }: ProjectCardProps) {
+  const Wrapper = href ? "a" : "div";
+  const wrapperProps = href
+    ? { href, target: "_blank", rel: "noopener noreferrer" }
+    : {};
+
   return (
-    <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-      <div className="relative h-48 w-full">
-        <Image
-          src={imageUrl}
-          alt={title}
-          fill
-          className="object-cover"
-        />
-      </div>
-      <div className="p-6">
-        <h3 className="text-xl font-bold mb-2">{title}</h3>
-        <p className="text-gray-600 mb-4">{description}</p>
-        <div className="flex flex-wrap gap-2 mb-4">
-          {technologies.map((tech) => (
-            <span
-              key={tech}
-              className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
+    <AnimateIn delay={delay}>
+      <Wrapper
+        {...wrapperProps}
+        className="group flex flex-col gap-3 rounded-lg border border-border bg-card p-5 transition-all duration-300 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/5"
+      >
+        <div className="flex items-start justify-between">
+          <h3 className="font-semibold text-card-foreground transition-colors group-hover:text-accent">
+            {title}
+          </h3>
+          {href && (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="shrink-0 text-muted-foreground transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
             >
-              {tech}
+              <path d="M7 7h10v10" />
+              <path d="M7 17 17 7" />
+            </svg>
+          )}
+        </div>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          {description}
+        </p>
+        <div className="flex flex-wrap gap-2 pt-1">
+          {tags.map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full bg-muted px-2.5 py-0.5 font-mono text-xs text-muted-foreground"
+            >
+              {tag}
             </span>
           ))}
         </div>
-        <div className="flex gap-4">
-          {liveUrl && (
-            <Button href={liveUrl} variant="primary">
-              View Live
-            </Button>
-          )}
-          {githubUrl && (
-            <Button href={githubUrl} variant="outline">
-              View Code
-            </Button>
-          )}
-        </div>
-      </div>
-    </div>
+      </Wrapper>
+    </AnimateIn>
   );
-} 
+}
