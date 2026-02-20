@@ -100,20 +100,19 @@ export default function About() {
             custom={0.2}
             className="flex-1 space-y-5 text-muted-foreground leading-relaxed"
           >
-            {/* REPLACE: your personal bio */}
             <p>
               {
-                "I'm an iOS engineer who believes great software should feel invisible. My work lives at the intersection of thoughtful design and precise engineering — building apps that are fast, accessible, and a joy to use."
+                "I'm a software engineer at Veeva Systems working on Vault CRM Events Management. I graduated from UC Berkeley with a B.S. in Electrical Engineering & Computer Sciences."
               }
             </p>
             <p>
               {
-                "Swift has been my primary language for the past five years. I'm deeply familiar with UIKit, but SwiftUI is where I do my best work — composing interfaces that adapt gracefully across Apple's ecosystem."
+                "I speak three languages \u2014 English, Mandarin Chinese (Advanced Mid proficiency), and Korean. I was a two-time NSLI-Y Merit Scholarship recipient through the U.S. Department of State, studying Mandarin immersively in China."
               }
             </p>
             <p>
               {
-                "When I'm not writing code, I'm exploring new frameworks, contributing to open source, or thinking about how to make developer tooling just a little bit better."
+                "Outside of engineering, I\u2019m currently pursuing a Master of Divinity at The Southern Baptist Theological Seminary. I\u2019m passionate about the intersection of technology, language, and service."
               }
             </p>
           </motion.div>

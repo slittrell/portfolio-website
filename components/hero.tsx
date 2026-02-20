@@ -1,12 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowDown, Download } from "lucide-react";
 
-/* REPLACE: your name */
 const FIRST_NAME = "Sam";
 const LAST_NAME = "Littrell";
-const SUBTITLE = "Building native iOS experiences that feel inevitable.";
+const SUBTITLE = "Software engineer, linguist, and lifelong learner.";
 
 export default function Hero() {
   const reduceMotion = useReducedMotion();
@@ -62,7 +62,7 @@ export default function Hero() {
             custom={0.1}
             className="mb-4 inline-block font-mono text-sm text-accent"
           >
-            {"< iOS Engineer />"}
+            {"< Software Engineer />"}
           </motion.span>
 
           <h1 className="mb-4 font-serif text-6xl leading-tight tracking-tight text-foreground md:text-7xl lg:text-8xl">
@@ -141,26 +141,14 @@ export default function Hero() {
             />
             <div className="absolute -inset-1 rounded-full bg-background" />
 
-            {/* REPLACE: use your own profile image with next/image */}
-            <div className="relative h-48 w-48 overflow-hidden rounded-full bg-gradient-to-br from-accent/30 to-accent/10 md:h-56 md:w-56">
-              <motion.div
-                animate={
-                  reduceMotion
-                    ? {}
-                    : {
-                        y: [0, -6, 0],
-                      }
-                }
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="flex h-full w-full items-center justify-center font-serif text-5xl text-accent md:text-6xl"
-              >
-                {/* REPLACE: your initials */}
-                SL
-              </motion.div>
+            <div className="relative h-48 w-48 overflow-hidden rounded-full md:h-56 md:w-56">
+              <Image
+                src="/images/profile.png"
+                alt="Samuel Littrell"
+                fill
+                className="object-cover"
+                priority
+              />
             </div>
           </div>
 

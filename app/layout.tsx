@@ -23,10 +23,9 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  /* REPLACE: your name and description */
-  title: "Sam Littrell | iOS Engineer",
+  title: "Sam Littrell | Software Engineer",
   description:
-    "Portfolio of Sam Littrell — iOS Software Engineer building native experiences with Swift and SwiftUI.",
+    "Portfolio of Samuel Littrell — Associate SWE at Veeva Systems, UC Berkeley EECS graduate, and aspiring theologian.",
 };
 
 export const viewport: Viewport = {

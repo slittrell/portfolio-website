@@ -51,8 +51,8 @@ export default function Footer() {
             custom={0.1}
             className="mb-10 max-w-md text-muted-foreground leading-relaxed"
           >
-            Open to senior iOS roles, contract work, and interesting side
-            projects.
+            Open to interesting projects and collaborations. Always happy to
+            connect.
           </motion.p>
 
           {/* Social links */}
@@ -86,9 +86,8 @@ export default function Footer() {
           custom={0.4}
           className="mt-16 border-t border-card-border pt-6 text-center"
         >
-          {/* REPLACE: your name and year */}
           <p className="font-mono text-xs text-muted">
-            {"Built with Next.js & \u2665 by Sam Littrell \u00B7 2025"}
+            {"Built with Next.js & \u2665 by Sam Littrell \u00B7 2026"}
           </p>
         </motion.div>
       </div>

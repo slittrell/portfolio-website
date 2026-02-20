@@ -16,6 +16,13 @@ export interface ResumeEntry {
   bullets: string[];
 }
 
+export interface EducationEntry {
+  degree: string;
+  school: string;
+  dateRange: string;
+  notes?: string;
+}
+
 export interface Stat {
   value: number;
   suffix: string;
@@ -30,114 +37,136 @@ export const NAV_LINKS = [
   { label: "Contact", href: "#contact" },
 ] as const;
 
-/* REPLACE: your personal stats */
 export const STATS: Stat[] = [
-  { value: 5, suffix: "+", label: "Years of Experience" },
-  { value: 20, suffix: "+", label: "Apps Shipped" },
-  { value: 10, suffix: "M+", label: "Users Reached" },
-  { value: 3, suffix: "", label: "Open Source Projects" },
+  { value: 2, suffix: "+", label: "Years at Veeva" },
+  { value: 3, suffix: "", label: "Languages Spoken" },
+  { value: 1, suffix: "", label: "USACO Silver" },
+  { value: 2, suffix: "x", label: "NSLI-Y Scholar" },
 ];
 
-/* REPLACE: your actual skills */
-export const IOS_SKILLS = [
+export const PRIMARY_SKILLS = [
+  "Java",
+  "Apex",
+  "JavaScript",
   "Swift",
-  "SwiftUI",
-  "UIKit",
-  "Xcode",
-  "Combine",
-  "async/await",
-  "CoreData",
-  "Core Animation",
-  "XCTest",
+  "Python",
+  "SQL",
+  "CRM Development",
+  "Vault Platform",
+  "Automated Testing",
 ];
 
 export const BROADER_SKILLS = [
   "Git",
-  "GitHub Actions",
-  "Figma",
-  "Firebase",
+  "iOS Development",
+  "Objective-C",
   "REST APIs",
-  "GraphQL",
-  "Python",
+  "Firebase",
   "CI/CD",
-  "App Store Connect",
-  "TestFlight",
+  "Mandarin Chinese",
+  "UI Testing",
+  "Next.js",
+  "TypeScript",
 ];
 
-/* REPLACE: your actual projects */
 export const PROJECTS: Project[] = [
   {
-    name: "Habitual",
+    name: "Vault CRM Events Management",
     description:
-      "A beautifully minimal habit tracker with streak visualization, daily reminders, and detailed analytics to help you build lasting habits.",
-    tags: ["SwiftUI", "CoreData", "WidgetKit", "Charts"],
+      "Enterprise CRM events management module at Veeva Systems, enabling life sciences companies to plan, execute, and track their events and engagements.",
+    tags: ["Java", "Apex", "Vault Platform", "CRM"],
     githubUrl: "#",
-    appStoreUrl: "#",
-    initials: "Ha",
-    gradientFrom: "#3B82F6",
-    gradientTo: "#8B5CF6",
+    initials: "Ve",
+    gradientFrom: "#F97316",
+    gradientTo: "#EF4444",
   },
   {
-    name: "FocusFlow",
+    name: "Belden Horizon Lite",
     description:
-      "Pomodoro timer meets task manager. Integrates with WidgetKit for home screen focus sessions and tracks productivity over time.",
-    tags: ["SwiftUI", "WidgetKit", "CoreData", "Combine"],
+      "Automated UI testing for the Belden Horizon Lite Mobile App during a Software R&D internship, improving quality assurance and test coverage.",
+    tags: ["Mobile", "UI Testing", "Automation", "R&D"],
     githubUrl: "#",
-    appStoreUrl: "#",
-    initials: "Ff",
+    initials: "BH",
+    gradientFrom: "#3B82F6",
+    gradientTo: "#06B6D4",
+  },
+  {
+    name: "Portfolio Website",
+    description:
+      "This personal portfolio built with Next.js, Tailwind CSS, and Framer Motion. Features a Substack-style articles section with markdown rendering.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    githubUrl: "https://github.com/slittrell/portfolio-website",
+    initials: "PW",
     gradientFrom: "#10B981",
     gradientTo: "#3B82F6",
   },
-  {
-    name: "Luma",
-    description:
-      "A photo journal app that lets you capture daily moments with rich text entries and automatic CloudKit sync across all your devices.",
-    tags: ["SwiftUI", "PhotosUI", "CloudKit", "CoreImage"],
-    githubUrl: "#",
-    initials: "Lu",
-    gradientFrom: "#F59E0B",
-    gradientTo: "#EF4444",
-  },
 ];
 
-/* REPLACE: your actual experience */
 export const RESUME_ENTRIES: ResumeEntry[] = [
   {
-    title: "Senior iOS Engineer",
-    company: "Company Name",
-    dateRange: "2022 - Present",
+    title: "Associate Software Engineer",
+    company: "Veeva Systems",
+    dateRange: "Feb 2025 - Present",
     bullets: [
-      "Lead architecture and development of flagship iOS application serving 2M+ daily active users.",
-      "Migrated legacy UIKit codebase to SwiftUI, reducing view-related bugs by 40%.",
-      "Implemented CI/CD pipeline with GitHub Actions, cutting release time from days to hours.",
+      "Working on Vault CRM Events Management, building enterprise software for the life sciences industry.",
+      "Developing and maintaining features on the Veeva Vault platform using Java and Apex.",
     ],
   },
   {
-    title: "iOS Engineer",
-    company: "Company Name",
-    dateRange: "2020 - 2022",
+    title: "Software Engineer Intern",
+    company: "Veeva Systems",
+    dateRange: "May 2024 - Aug 2024",
     bullets: [
-      "Built and shipped 5 new features for the core iOS app, including a real-time messaging system.",
-      "Optimized app launch time by 35% through lazy loading and dependency injection improvements.",
-      "Mentored two junior developers and led weekly code review sessions.",
+      "Interned on the Vault CRM Events Management team in Pleasanton, CA.",
+      "Contributed to feature development and bug fixes for the CRM platform.",
     ],
   },
   {
-    title: "Junior iOS Developer",
-    company: "Company Name",
-    dateRange: "2018 - 2020",
+    title: "Educational Consultant",
+    company: "Apex Academy",
+    dateRange: "Mar 2020 - Jun 2024",
     bullets: [
-      "Developed UI components following Apple Human Interface Guidelines using UIKit and Auto Layout.",
-      "Integrated RESTful APIs with URLSession and implemented offline-first data caching with CoreData.",
-      "Contributed to unit and UI testing efforts, achieving 70% code coverage across the app.",
+      "Helped high school students navigate the college admissions process.",
+      "Provided guidance on applications, essays, and academic planning over 4+ years.",
+    ],
+  },
+  {
+    title: "Software R&D Intern",
+    company: "Belden Inc.",
+    dateRange: "May 2023 - Aug 2023",
+    bullets: [
+      "Automated UI testing for the Belden Horizon Lite Mobile App.",
+      "Improved test coverage and quality assurance processes at the Santa Clara office.",
+    ],
+  },
+  {
+    title: "NSLI-Y Scholar",
+    company: "U.S. Department of State",
+    dateRange: "Jun 2019 - Jun 2021",
+    bullets: [
+      "2x Merit Scholarship Recipient for this government-funded language immersion study abroad program.",
+      "Studied Mandarin Chinese and earned Advanced Mid on the ACTFL OPI exam.",
     ],
   },
 ];
 
-/* REPLACE: your social links */
+export const EDUCATION_ENTRIES: EducationEntry[] = [
+  {
+    degree: "B.S. Electrical Engineering & Computer Sciences",
+    school: "UC Berkeley College of Engineering",
+    dateRange: "Graduated 2024",
+  },
+  {
+    degree: "M.Div. Theological and Ministerial Studies",
+    school: "The Southern Baptist Theological Seminary",
+    dateRange: "Aug 2025 - May 2030",
+    notes: "Currently enrolled",
+  },
+];
+
 export const SOCIAL_LINKS = {
-  github: "https://github.com",
-  linkedin: "https://linkedin.com",
+  github: "https://github.com/slittrell",
+  linkedin: "https://www.linkedin.com/in/slittrell/",
   twitter: "https://twitter.com",
-  email: "mailto:hello@example.com",
+  email: "mailto:samuel.littrell@gmail.com",
 };

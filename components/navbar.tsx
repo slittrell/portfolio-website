@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { NAV_LINKS } from "@/lib/data";
@@ -83,6 +84,12 @@ export default function Navbar() {
               )}
             </button>
           ))}
+          <Link
+            href="/articles"
+            className="relative font-mono text-sm text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Articles
+          </Link>
         </div>
 
         {/* Mobile hamburger */}
@@ -115,6 +122,13 @@ export default function Navbar() {
                   {link.label}
                 </button>
               ))}
+              <Link
+                href="/articles"
+                onClick={() => setMobileOpen(false)}
+                className="text-left font-mono text-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
+                Articles
+              </Link>
             </div>
           </motion.div>
         )}
