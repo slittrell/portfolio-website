@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
-import { IOS_SKILLS, BROADER_SKILLS } from "@/lib/data";
+import { PRIMARY_SKILLS, BROADER_SKILLS } from "@/lib/data";
 
 function SkillChip({
   label,
@@ -86,7 +86,7 @@ export default function Skills() {
         </motion.h2>
 
         <div className="space-y-10">
-          {/* Core iOS Stack */}
+          {/* Primary Skills */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
@@ -94,10 +94,10 @@ export default function Skills() {
             custom={0.2}
           >
             <h3 className="mb-4 font-mono text-xs uppercase tracking-widest text-muted">
-              Core iOS Stack
+              Primary Stack
             </h3>
             <div className="flex flex-wrap gap-3">
-              {IOS_SKILLS.map((skill, i) => (
+              {PRIMARY_SKILLS.map((skill, i) => (
                 <SkillChip
                   key={skill}
                   label={skill}
