@@ -8,7 +8,6 @@ import { SOCIAL_LINKS } from "@/lib/data";
 const SOCIALS = [
   { icon: Github, href: SOCIAL_LINKS.github, label: "GitHub" },
   { icon: Linkedin, href: SOCIAL_LINKS.linkedin, label: "LinkedIn" },
-  { icon: Twitter, href: SOCIAL_LINKS.twitter, label: "Twitter / X" },
   { icon: Mail, href: SOCIAL_LINKS.email, label: "Email" },
 ];
 

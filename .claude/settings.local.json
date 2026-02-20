@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /Users/slittrell/Desktop/OTHER/portfolio-website status)",
+      "Bash(git -C /Users/slittrell/Desktop/OTHER/portfolio-website log --oneline -5)",
+      "Bash(git -C /Users/slittrell/Desktop/OTHER/portfolio-website diff package.json)",
+      "Bash(git -C /Users/slittrell/Desktop/OTHER/portfolio-website checkout -- package.json)",
+      "Bash(git -C /Users/slittrell/Desktop/OTHER/portfolio-website add next.config.mjs firebase.json .firebaserc next-env.d.ts)",
+      "Bash(git -C:*)",
+      "Bash(gh api:*)"
+    ]
+  }
+}

@@ -152,7 +152,7 @@ export const RESUME_ENTRIES: ResumeEntry[] = [
 
 export const EDUCATION_ENTRIES: EducationEntry[] = [
   {
-    degree: "B.S. Electrical Engineering & Computer Sciences",
+    degree: "B.S. Electrical Engineering & Computer Sciences (EECS)",
     school: "UC Berkeley College of Engineering",
     dateRange: "Graduated 2024",
   },
@@ -167,6 +167,5 @@ export const EDUCATION_ENTRIES: EducationEntry[] = [
 export const SOCIAL_LINKS = {
   github: "https://github.com/slittrell",
   linkedin: "https://www.linkedin.com/in/slittrell/",
-  twitter: "https://twitter.com",
-  email: "mailto:samuel.littrell@gmail.com",
+  email: "mailto:sam@littrelly.com",
 };
