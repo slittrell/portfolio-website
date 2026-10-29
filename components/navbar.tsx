@@ -50,7 +50,6 @@ export default function Navbar() {
       }`}
     >
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-        {/* REPLACE: your name */}
         <a
           href="#"
           className="font-mono text-sm tracking-wide text-muted-foreground transition-colors hover:text-foreground"

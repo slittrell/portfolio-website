@@ -3,7 +3,8 @@
 import { useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { Download } from "lucide-react";
-import { RESUME_ENTRIES } from "@/lib/data";
+import { RESUME_ENTRIES, RESUME_PDF } from "@/lib/data";
+import { asset } from "@/lib/asset";
 
 export default function Resume() {
   const ref = useRef(null);
@@ -82,7 +83,6 @@ export default function Resume() {
                     <span className="hidden text-muted md:inline">
                       {"//"}
                     </span>
-                    {/* REPLACE: your actual company names */}
                     <span className="font-mono text-sm text-accent">
                       {entry.company}
                     </span>
@@ -108,22 +108,26 @@ export default function Resume() {
         </div>
 
         {/* Download button */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          custom={0.8}
-          className="mt-12 flex justify-center"
-        >
-          {/* REPLACE: link to your actual resume PDF */}
-          <a
-            href="#"
-            className="inline-flex items-center gap-2 rounded-lg border border-card-border px-6 py-3 font-mono text-sm text-foreground transition-colors hover:border-muted-foreground"
+        {RESUME_PDF && (
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            custom={0.8}
+            className="mt-12 flex justify-center"
           >
-            <Download size={16} />
-            Download Full Resume
-          </a>
-        </motion.div>
+            <a
+              href={asset(RESUME_PDF)}
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg border border-card-border px-6 py-3 font-mono text-sm text-foreground transition-colors hover:border-muted-foreground"
+            >
+              <Download size={16} />
+              Download Full Resume
+            </a>
+          </motion.div>
+        )}
       </div>
     </section>
   );

@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
-import { Github, ExternalLink } from "lucide-react";
+import { Github, ExternalLink, Globe, Lock } from "lucide-react";
 import { PROJECTS } from "@/lib/data";
 import type { Project } from "@/lib/data";
 
@@ -68,16 +68,29 @@ function ProjectCard({
       </div>
 
       {/* Links */}
-      <div className="flex gap-3">
-        <a
-          href={project.githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`View ${project.name} on GitHub`}
-          className="rounded-lg border border-card-border p-2 text-muted-foreground transition-colors hover:border-muted hover:text-foreground"
-        >
-          <Github size={16} />
-        </a>
+      <div className="flex items-center gap-3">
+        {project.githubUrl && (
+          <a
+            href={project.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`View ${project.name} on GitHub`}
+            className="rounded-lg border border-card-border p-2 text-muted-foreground transition-colors hover:border-muted hover:text-foreground"
+          >
+            <Github size={16} />
+          </a>
+        )}
+        {project.liveUrl && (
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Visit ${project.name}`}
+            className="rounded-lg border border-card-border p-2 text-muted-foreground transition-colors hover:border-muted hover:text-foreground"
+          >
+            <Globe size={16} />
+          </a>
+        )}
         {project.appStoreUrl && (
           <a
             href={project.appStoreUrl}
@@ -88,6 +101,12 @@ function ProjectCard({
           >
             <ExternalLink size={16} />
           </a>
+        )}
+        {project.proprietary && (
+          <span className="inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground">
+            <Lock size={12} aria-hidden="true" />
+            Proprietary work project
+          </span>
         )}
       </div>
     </motion.article>

@@ -65,6 +65,7 @@ export const NAV_LINKS = [
   { label: "Contact", href: "#contact" },
 ] as const;
 
+// TODO(Samuel): confirm "2+ Years at Veeva" (intern May 2024, full-time Feb 2025) and the other stats.
 export const STATS: Stat[] = [
   { value: 2, suffix: "+", label: "Years at Veeva" },
   { value: 3, suffix: "", label: "Languages Spoken" },
@@ -96,13 +97,14 @@ export const BROADER_SKILLS = [
   "Java"
 ];
 
+// TODO(Samuel): add new and side projects (name, description, tags, links).
 export const PROJECTS: Project[] = [
   {
     name: "Vault CRM Events Management",
     description:
       "Enterprise CRM events management module at Veeva Systems, enabling life sciences companies to plan, execute, and track their events and engagements.",
     tags: ["Swift", "Objective-C", "iOS Development", "Vault Platform", "CRM"],
-    githubUrl: "#",
+    proprietary: true,
     initials: "VCRM",
     gradientFrom: "#F97316",
     gradientTo: "#EF4444",
@@ -111,8 +113,9 @@ export const PROJECTS: Project[] = [
     name: "Belden Horizon Lite",
     description:
       "Automated UI testing for the Belden Horizon Lite Mobile App during a Software R&D internship, improving quality assurance and test coverage.",
+    // TODO(Samuel): add Kotlin and Android to skills, since this card lists them?
     tags: ["Kotlin", "Java", "Android Development", "UI Testing", "Automation"],
-    githubUrl: "#",
+    proprietary: true,
     initials: "BH",
     gradientFrom: "#3B82F6",
     gradientTo: "#06B6D4",
@@ -129,6 +132,7 @@ export const PROJECTS: Project[] = [
   },
 ];
 
+// TODO(Samuel): confirm current role, title, and dates; add any new experience.
 export const RESUME_ENTRIES: ResumeEntry[] = [
   {
     title: "Associate Software Engineer",
@@ -177,6 +181,7 @@ export const RESUME_ENTRIES: ResumeEntry[] = [
   },
 ];
 
+// TODO(Samuel): confirm M.Div. status and expected graduation, and Berkeley graduation month if wanted.
 export const EDUCATION_ENTRIES: EducationEntry[] = [
   {
     degree: "B.S. Electrical Engineering & Computer Sciences (EECS)",
@@ -191,8 +196,13 @@ export const EDUCATION_ENTRIES: EducationEntry[] = [
   },
 ];
 
+// TODO(Samuel): add the resume PDF to public/ (e.g. "/Samuel_Littrell_Resume.pdf") and set this.
+// Resume download buttons stay hidden while it is undefined.
+export const RESUME_PDF: string | undefined = undefined;
+
 export const SOCIAL_LINKS = {
   github: "https://github.com/slittrell",
   linkedin: "https://www.linkedin.com/in/slittrell/",
+  // TODO(Samuel): confirm this address (littrelly vs. littrell).
   email: "mailto:sam@littrelly.com",
 };

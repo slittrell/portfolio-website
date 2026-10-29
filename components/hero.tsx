@@ -4,7 +4,8 @@ import Image from "next/image";
 import profileImage from "@/public/images/profile.png";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowDown, Download } from "lucide-react";
-import { HERO, SITE } from "@/lib/data";
+import { HERO, RESUME_PDF, SITE } from "@/lib/data";
+import { asset } from "@/lib/asset";
 
 export default function Hero() {
   const reduceMotion = useReducedMotion();
@@ -108,14 +109,26 @@ export default function Hero() {
               View Projects
               <ArrowDown size={16} />
             </a>
-            {/* REPLACE: link to your actual resume file */}
-            <a
-              href="#resume"
-              className="inline-flex items-center gap-2 rounded-lg border border-card-border px-6 py-3 font-mono text-sm text-foreground transition-colors hover:border-muted-foreground"
-            >
-              Download Resume
-              <Download size={16} />
-            </a>
+            {RESUME_PDF ? (
+              <a
+                href={asset(RESUME_PDF)}
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-lg border border-card-border px-6 py-3 font-mono text-sm text-foreground transition-colors hover:border-muted-foreground"
+              >
+                Download Resume
+                <Download size={16} />
+              </a>
+            ) : (
+              <a
+                href="#resume"
+                className="inline-flex items-center gap-2 rounded-lg border border-card-border px-6 py-3 font-mono text-sm text-foreground transition-colors hover:border-muted-foreground"
+              >
+                View Experience
+                <ArrowDown size={16} />
+              </a>
+            )}
           </motion.div>
         </div>
 
@@ -150,7 +163,7 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Available for work badge */}
+          {/* TODO(Samuel): keep the "Available for work" badge alongside a full-time role? */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
