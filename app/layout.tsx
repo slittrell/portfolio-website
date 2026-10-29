@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, DM_Mono, Instrument_Serif } from "next/font/google";
+import { asset } from "@/lib/asset";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -28,13 +29,12 @@ export const metadata: Metadata = {
     "Portfolio of Samuel Littrell — Associate SWE at Veeva Systems, UC Berkeley EECS graduate, and aspiring theologian.",
   icons: {
     icon: [
-      { url: "/favicon.ico" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: asset("/favicon.ico") },
+      { url: asset("/favicon-16x16.png"), sizes: "16x16", type: "image/png" },
+      { url: asset("/favicon-32x32.png"), sizes: "32x32", type: "image/png" },
     ],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    apple: [{ url: asset("/apple-touch-icon.png"), sizes: "180x180", type: "image/png" }],
   },
-  manifest: "/site.webmanifest",
 };
 
 export const viewport: Viewport = {

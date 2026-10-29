@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import profileImage from "@/public/images/profile.png";
 import { ArrowLeft } from "lucide-react";
 import { getAllArticles } from "@/lib/articles";
 
@@ -45,7 +46,7 @@ export default function ArticlesPage() {
         <div className="mb-16 flex flex-col items-center text-center">
           <div className="relative mb-6 h-20 w-20 overflow-hidden rounded-full">
             <Image
-              src="/images/profile.png"
+              src={profileImage}
               alt="Samuel Littrell"
               fill
               className="object-cover"

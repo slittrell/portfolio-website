@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import profileImage from "@/public/images/profile.png";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowDown, Download } from "lucide-react";
 
@@ -143,7 +144,7 @@ export default function Hero() {
 
             <div className="relative h-48 w-48 overflow-hidden rounded-full md:h-56 md:w-56">
               <Image
-                src="/images/profile.png"
+                src={profileImage}
                 alt="Samuel Littrell"
                 fill
                 className="object-cover"
