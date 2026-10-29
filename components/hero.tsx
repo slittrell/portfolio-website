@@ -1,5 +1,5 @@
 import Image from "next/image";
-import profileImage from "@/public/images/profile.png";
+import profileImage from "@/public/images/profile.webp";
 import { ArrowDown, Download } from "lucide-react";
 import { HERO, RESUME_PDF, SITE } from "@/lib/data";
 import { asset } from "@/lib/asset";

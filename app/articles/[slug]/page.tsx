@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import profileImage from "@/public/images/profile.png";
+import profileImage from "@/public/images/profile.webp";
 import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 import { formatDate, getAllArticles, getArticleBySlug } from "@/lib/articles";
