@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { formatDate, getAllArticles } from "@/lib/articles";
 import { SITE } from "@/lib/data";
+import { CARD, EYEBROW } from "@/lib/ui";
+import ArticlesHeader from "@/components/articles-header";
 
 export const metadata: Metadata = {
   title: `Articles | ${SITE.name}`,
@@ -14,30 +16,34 @@ export default function ArticlesPage() {
   const articles = getAllArticles();
 
   return (
-    <div className="min-h-screen">
-      {/* Header */}
-      <header className="border-b border-card-border">
-        <div className="mx-auto flex max-w-2xl items-center justify-between px-6 py-4">
+    <div className="flex min-h-screen flex-col bg-grouped">
+      <ArticlesHeader
+        leading={
           <Link
             href="/"
-            className="flex items-center gap-2 font-mono text-sm text-muted-foreground transition-colors hover:text-foreground"
+            className="-ml-1 flex items-center gap-0.5 text-[15px] text-accent-text transition-opacity duration-200 hover:opacity-70"
           >
-            <ArrowLeft size={16} />
+            <ChevronLeft size={20} aria-hidden="true" />
             Home
           </Link>
-          <span className="font-mono text-sm text-muted-foreground">
+        }
+        trailing={
+          <span className="text-[15px] font-semibold tracking-[-0.01em] text-label">
             {SITE.handle}
           </span>
-        </div>
-      </header>
+        }
+      />
 
-      <main id="main" className="mx-auto max-w-2xl px-6 py-16 md:py-24">
-        {/* Profile header -- Substack-style */}
-        <div className="mb-16 flex flex-col items-center text-center">
-          <h1 className="mb-2 font-serif text-3xl text-foreground md:text-4xl text-balance">
+      <main
+        id="main"
+        className="mx-auto w-full max-w-2xl flex-1 px-[25px] py-14 md:py-20"
+      >
+        {/* Profile header */}
+        <div className="mb-10 flex flex-col items-center text-center md:mb-12">
+          <h1 className="mb-3 text-[32px] leading-[1.1] font-bold tracking-[-0.02em] text-balance text-label md:text-[40px]">
             {`${SITE.name}'s Writing`}
           </h1>
-          <p className="max-w-md text-muted-foreground leading-relaxed">
+          <p className="max-w-md text-[15px] leading-[1.5] text-label-2 md:text-[17px]">
             Thoughts on software engineering, language learning, theology, and
             everything in between.
           </p>
@@ -45,61 +51,69 @@ export default function ArticlesPage() {
 
         {/* Articles list */}
         {articles.length === 0 ? (
-          <div className="flex flex-col items-center py-16 text-center">
-            <p className="mb-2 font-serif text-xl text-foreground">
+          <div
+            className={`flex flex-col items-center px-6 py-16 text-center ${CARD}`}
+          >
+            <p className="mb-2 text-[19px] font-semibold text-label">
               No articles yet
             </p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-[14px] text-label-2">
               Check back soon for new writing.
             </p>
           </div>
         ) : (
-          <div className="space-y-0 divide-y divide-card-border">
-            {articles.map((article) => (
-              <Link
-                key={article.slug}
-                href={`/articles/${article.slug}`}
-                className="group block py-8 first:pt-0 transition-colors"
-              >
-                <article>
-                  <div className="mb-2 flex items-center gap-3">
-                    <time
-                      dateTime={article.date}
-                      className="font-mono text-xs text-muted-foreground"
+          <ul className={`overflow-hidden ${CARD}`}>
+            {articles.map((article, i) => (
+              <li key={article.slug} className="relative">
+                {i > 0 && (
+                  <div
+                    aria-hidden="true"
+                    className="absolute top-0 right-0 left-5 border-t border-separator md:left-6"
+                  />
+                )}
+                <Link
+                  href={`/articles/${article.slug}`}
+                  className="group flex items-center gap-4 px-5 py-5 transition-colors duration-200 hover:bg-fill md:px-6"
+                >
+                  <article className="min-w-0 flex-1">
+                    <div
+                      className={`mb-1.5 flex items-center gap-1.5 text-label-3 ${EYEBROW}`}
                     >
-                      {formatDate(article.date)}
-                    </time>
-                    {article.readingTime && (
-                      <>
-                        <span className="text-muted-foreground/40">
-                          {"--"}
-                        </span>
-                        <span className="font-mono text-xs text-muted-foreground">
-                          {article.readingTime}
-                        </span>
-                      </>
+                      <time dateTime={article.date}>
+                        {formatDate(article.date)}
+                      </time>
+                      {article.readingTime && (
+                        <>
+                          <span aria-hidden="true">{"·"}</span>
+                          <span>{article.readingTime}</span>
+                        </>
+                      )}
+                    </div>
+                    <h2 className="mb-1 text-[17px] leading-[1.29] font-semibold tracking-[-0.01em] text-pretty text-label md:text-[19px]">
+                      {article.title}
+                    </h2>
+                    {article.subtitle && (
+                      <p className="text-[14px] leading-[1.4] text-label-2">
+                        {article.subtitle}
+                      </p>
                     )}
-                  </div>
-                  <h2 className="mb-1 font-serif text-xl text-foreground transition-colors group-hover:text-accent md:text-2xl text-pretty">
-                    {article.title}
-                  </h2>
-                  {article.subtitle && (
-                    <p className="text-muted-foreground leading-relaxed">
-                      {article.subtitle}
-                    </p>
-                  )}
-                </article>
-              </Link>
+                  </article>
+                  <ChevronRight
+                    size={18}
+                    aria-hidden="true"
+                    className="shrink-0 text-label-3 transition-transform duration-200 group-hover:translate-x-0.5"
+                  />
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-card-border">
-        <div className="mx-auto max-w-2xl px-6 py-6 text-center">
-          <p className="font-mono text-xs text-muted">
-            {`${SITE.fullName} \u00B7 ${new Date().getFullYear()}`}
+      <footer className="border-t-[0.5px] border-separator">
+        <div className="mx-auto max-w-2xl px-[25px] py-6 text-center">
+          <p className="text-[12px] leading-[1.3] text-label-3">
+            {`${SITE.fullName} · ${new Date().getFullYear()}`}
           </p>
         </div>
       </footer>

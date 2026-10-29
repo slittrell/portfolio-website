@@ -225,59 +225,74 @@ body {
   mask-image: none;
 }
 
-/* Article prose styles (Substack-inspired) */
+/* Article prose: editorial story page */
 .article-prose {
-  color: var(--color-foreground);
-  font-size: 1.125rem;
-  line-height: 1.75;
+  color: var(--label);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+  .article-prose {
+    font-size: 1.1875rem;
+  }
 }
 
 .article-prose h1,
 .article-prose h2,
 .article-prose h3,
 .article-prose h4 {
-  font-family: var(--font-serif);
-  color: var(--color-foreground);
+  color: var(--label);
+  font-weight: 700;
   margin-top: 2em;
-  margin-bottom: 0.75em;
-  line-height: 1.3;
+  margin-bottom: 0.6em;
+  line-height: 1.2;
+  text-wrap: balance;
 }
 
 .article-prose h1 {
-  font-size: 2rem;
+  font-size: 1.75em;
+  letter-spacing: -0.02em;
 }
 
 .article-prose h2 {
-  font-size: 1.5rem;
+  font-size: 1.4em;
+  letter-spacing: -0.015em;
 }
 
 .article-prose h3 {
-  font-size: 1.25rem;
+  font-size: 1.15em;
+  letter-spacing: -0.01em;
 }
 
 .article-prose p {
-  margin-bottom: 1.5em;
+  margin-bottom: 1.25em;
 }
 
 .article-prose a {
-  color: var(--color-accent);
+  color: var(--accent-text);
   text-decoration: underline;
-  text-underline-offset: 2px;
-  transition: color 0.15s;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: opacity 0.2s var(--ease-apple);
 }
 
 .article-prose a:hover {
-  color: var(--color-accent-hover);
+  opacity: 0.7;
 }
 
 .article-prose ul,
 .article-prose ol {
-  margin-bottom: 1.5em;
+  margin-bottom: 1.25em;
   padding-left: 1.5em;
 }
 
 .article-prose li {
   margin-bottom: 0.5em;
+}
+
+.article-prose li::marker {
+  color: var(--label-3);
 }
 
 .article-prose ul li {
@@ -289,26 +304,25 @@ body {
 }
 
 .article-prose blockquote {
-  border-left: 3px solid var(--color-accent);
+  border-left: 3px solid var(--accent);
   padding-left: 1.25em;
   margin: 1.5em 0;
-  color: var(--color-muted-foreground);
-  font-style: italic;
+  color: var(--label-2);
 }
 
 .article-prose code {
   font-family: var(--font-mono);
-  background: var(--color-card);
-  border: 1px solid var(--color-card-border);
-  border-radius: 4px;
+  background: var(--surface-2);
+  border: 0.5px solid var(--separator);
+  border-radius: var(--radius-xs);
   padding: 0.15em 0.4em;
-  font-size: 0.875em;
+  font-size: 0.85em;
 }
 
 .article-prose pre {
-  background: var(--color-card);
-  border: 1px solid var(--color-card-border);
-  border-radius: 8px;
+  background: var(--surface-2);
+  border: 0.5px solid var(--separator);
+  border-radius: var(--radius-md);
   padding: 1.25em;
   margin: 1.5em 0;
   overflow-x: auto;
@@ -323,18 +337,18 @@ body {
 
 .article-prose hr {
   border: none;
-  border-top: 1px solid var(--color-card-border);
+  border-top: 1px solid var(--separator);
   margin: 2em 0;
 }
 
 .article-prose strong {
-  color: var(--color-foreground);
+  color: var(--label);
   font-weight: 600;
 }
 
 .article-prose img {
   max-width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   margin: 1.5em 0;
 }
