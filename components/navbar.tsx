@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { NAV_LINKS, SITE } from "@/lib/data";
+import ThemeToggle from "@/components/theme-toggle";
 
 function NavItem({
   href,
@@ -150,6 +151,7 @@ export default function Navbar() {
           >
             Articles
           </Link>
+          <ThemeToggle />
         </div>
 
         {/* Mobile hamburger */}
