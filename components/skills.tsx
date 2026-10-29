@@ -63,7 +63,7 @@ export default function Skills() {
   };
 
   return (
-    <section id="skills" className="py-24 md:py-32" ref={ref}>
+    <section id="skills" className="scroll-mt-20 py-24 md:py-32" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
         <motion.span
           variants={fadeUp}

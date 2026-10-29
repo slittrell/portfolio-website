@@ -25,7 +25,7 @@ export default function Resume() {
   };
 
   return (
-    <section id="resume" className="py-24 md:py-32" ref={ref}>
+    <section id="resume" className="scroll-mt-20 py-24 md:py-32" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
         <motion.span
           variants={fadeUp}

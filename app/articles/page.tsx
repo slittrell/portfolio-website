@@ -41,7 +41,7 @@ export default function ArticlesPage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-2xl px-6 py-16 md:py-24">
+      <main id="main" className="mx-auto max-w-2xl px-6 py-16 md:py-24">
         {/* Profile header -- Substack-style */}
         <div className="mb-16 flex flex-col items-center text-center">
           <div className="relative mb-6 h-20 w-20 overflow-hidden rounded-full">

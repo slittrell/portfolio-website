@@ -30,7 +30,7 @@ export default function Footer() {
   };
 
   return (
-    <footer id="contact" className="py-24 md:py-32" ref={ref}>
+    <footer id="contact" className="scroll-mt-20 py-24 md:py-32" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
         <div className="flex flex-col items-center text-center">
           <motion.h2

@@ -71,7 +71,7 @@ export default async function ArticlePage({ params }: Props) {
         </div>
       </header>
 
-      <main className="mx-auto max-w-2xl px-6 py-16 md:py-24">
+      <main id="main" className="mx-auto max-w-2xl px-6 py-16 md:py-24">
         {/* Article header */}
         <header className="mb-12 border-b border-card-border pb-12">
           <h1 className="mb-3 font-serif text-3xl text-foreground md:text-4xl lg:text-5xl text-balance">

@@ -38,8 +38,8 @@ export default function Hero() {
 
   return (
     <section
+      id="top"
       className="relative flex min-h-screen items-center overflow-hidden"
-      aria-label="Hero"
     >
       {/* Faint dot grid background */}
       <div
