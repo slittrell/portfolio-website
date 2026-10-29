@@ -1,9 +1,10 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useInView } from "framer-motion";
 import { Github, Linkedin, Mail } from "lucide-react";
 import { SITE, SOCIAL_LINKS } from "@/lib/data";
+import FadeIn from "@/components/fade-in";
 
 const SOCIALS = [
   { icon: Github, href: SOCIAL_LINKS.github, label: "GitHub" },
@@ -14,52 +15,34 @@ const SOCIALS = [
 export default function Footer() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const reduceMotion = useReducedMotion();
-
-  const fadeUp = {
-    hidden: { opacity: 0, y: 30 },
-    visible: (delay: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: reduceMotion ? 0 : delay,
-        duration: reduceMotion ? 0 : 0.5,
-        ease: [0.25, 0.4, 0.25, 1] as const,
-      },
-    }),
-  };
 
   return (
     <footer id="contact" className="scroll-mt-20 py-24 md:py-32" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
         <div className="flex flex-col items-center text-center">
-          <motion.h2
-            variants={fadeUp}
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-            custom={0}
+          <FadeIn
+            as="h2"
+            inView={inView}
             className="mb-4 font-serif text-4xl text-foreground md:text-5xl lg:text-6xl"
           >
             {"Let's build something."}
-          </motion.h2>
+          </FadeIn>
 
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-            custom={0.1}
+          <FadeIn
+            as="p"
+            inView={inView}
+            delay={0.1}
             className="mb-10 max-w-md text-muted-foreground leading-relaxed"
           >
             Open to interesting projects and collaborations. Always happy to
             connect.
-          </motion.p>
+          </FadeIn>
 
           {/* Social links */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-            custom={0.2}
+          <FadeIn
+            as="div"
+            inView={inView}
+            delay={0.2}
             className="flex gap-4"
           >
             {SOCIALS.map((social) => (
@@ -74,21 +57,20 @@ export default function Footer() {
                 <social.icon size={20} />
               </a>
             ))}
-          </motion.div>
+          </FadeIn>
         </div>
 
         {/* Bottom bar */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          custom={0.4}
+        <FadeIn
+          as="div"
+          inView={inView}
+          delay={0.4}
           className="mt-16 border-t border-card-border pt-6 text-center"
         >
           <p className="font-mono text-xs text-muted">
             {`Built with Next.js & \u2665 by ${SITE.name} \u00B7 ${new Date().getFullYear()}`}
           </p>
-        </motion.div>
+        </FadeIn>
       </div>
     </footer>
   );

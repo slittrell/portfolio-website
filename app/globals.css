@@ -5,7 +5,7 @@
   --color-foreground: #E8E4DE;
   --color-accent: #3B82F6;
   --color-accent-hover: #2563EB;
-  --color-muted: #6B7280;
+  --color-muted: #8B93A1; /* ~6:1 on background, WCAG AA for small text */
   --color-muted-foreground: #9CA3AF;
   --color-card: #111111;
   --color-card-border: #1F1F1F;

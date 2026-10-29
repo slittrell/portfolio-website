@@ -1,51 +1,35 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useInView } from "framer-motion";
 import { Download } from "lucide-react";
 import { RESUME_ENTRIES, RESUME_PDF } from "@/lib/data";
 import { asset } from "@/lib/asset";
+import FadeIn from "@/components/fade-in";
 
 export default function Resume() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
-  const reduceMotion = useReducedMotion();
-
-  const fadeUp = {
-    hidden: { opacity: 0, y: 30 },
-    visible: (delay: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: reduceMotion ? 0 : delay,
-        duration: reduceMotion ? 0 : 0.5,
-        ease: [0.25, 0.4, 0.25, 1] as const,
-      },
-    }),
-  };
 
   return (
     <section id="resume" className="scroll-mt-20 py-24 md:py-32" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
-        <motion.span
-          variants={fadeUp}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          custom={0}
+        <FadeIn
+          as="span"
+          inView={inView}
           className="mb-3 block font-mono text-sm text-muted"
         >
           {"// resume"}
-        </motion.span>
+        </FadeIn>
 
-        <motion.h2
-          variants={fadeUp}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          custom={0.1}
+        <FadeIn
+          as="h2"
+          inView={inView}
+          delay={0.1}
           className="mb-12 font-serif text-4xl text-foreground md:text-5xl"
         >
           My experience
-        </motion.h2>
+        </FadeIn>
 
         {/* Timeline */}
         <div className="relative">
@@ -54,22 +38,12 @@ export default function Resume() {
 
           <div className="space-y-12">
             {RESUME_ENTRIES.map((entry, i) => (
-              <motion.div
+              <FadeIn
                 key={entry.dateRange}
-                initial={{ opacity: 0, x: -20 }}
-                animate={
-                  inView
-                    ? {
-                        opacity: 1,
-                        x: 0,
-                        transition: {
-                          delay: reduceMotion ? 0 : 0.2 + i * 0.15,
-                          duration: reduceMotion ? 0 : 0.5,
-                          ease: [0.25, 0.4, 0.25, 1] as const,
-                        },
-                      }
-                    : { opacity: 0, x: -20 }
-                }
+                inView={inView}
+                delay={0.2 + i * 0.15}
+                x={-20}
+                y={0}
                 className="relative pl-10 md:pl-12"
               >
                 {/* Timeline dot */}
@@ -102,18 +76,17 @@ export default function Resume() {
                     ))}
                   </ul>
                 </div>
-              </motion.div>
+              </FadeIn>
             ))}
           </div>
         </div>
 
         {/* Download button */}
         {RESUME_PDF && (
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-            custom={0.8}
+          <FadeIn
+            as="div"
+            inView={inView}
+            delay={0.8}
             className="mt-12 flex justify-center"
           >
             <a
@@ -126,7 +99,7 @@ export default function Resume() {
               <Download size={16} />
               Download Full Resume
             </a>
-          </motion.div>
+          </FadeIn>
         )}
       </div>
     </section>

@@ -1,8 +1,9 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useInView, useReducedMotion } from "framer-motion";
 import { ABOUT_PARAGRAPHS, STATS } from "@/lib/data";
+import FadeIn from "@/components/fade-in";
 
 function AnimatedCounter({
   value,
@@ -53,67 +54,47 @@ function AnimatedCounter({
 export default function About() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
-  const reduceMotion = useReducedMotion();
-
-  const fadeUp = {
-    hidden: { opacity: 0, y: 30 },
-    visible: (delay: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: reduceMotion ? 0 : delay,
-        duration: reduceMotion ? 0 : 0.5,
-        ease: [0.25, 0.4, 0.25, 1] as const,
-      },
-    }),
-  };
 
   return (
     <section id="about" className="scroll-mt-20 py-24 md:py-32" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
-        <motion.span
-          variants={fadeUp}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          custom={0}
+        <FadeIn
+          as="span"
+          inView={inView}
           className="mb-3 block font-mono text-sm text-muted"
         >
           {"// about"}
-        </motion.span>
+        </FadeIn>
 
-        <motion.h2
-          variants={fadeUp}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          custom={0.1}
+        <FadeIn
+          as="h2"
+          inView={inView}
+          delay={0.1}
           className="mb-12 font-serif text-4xl text-foreground md:text-5xl"
         >
           A bit about me
-        </motion.h2>
+        </FadeIn>
 
         <div className="flex flex-col gap-12 md:flex-row md:gap-16">
           {/* Text column */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-            custom={0.2}
+          <FadeIn
+            as="div"
+            inView={inView}
+            delay={0.2}
             className="flex-1 space-y-5 text-muted-foreground leading-relaxed"
           >
             {ABOUT_PARAGRAPHS.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
-          </motion.div>
+          </FadeIn>
 
           {/* Stats grid */}
           <div className="grid flex-1 grid-cols-2 gap-4">
             {STATS.map((stat, i) => (
-              <motion.div
+              <FadeIn
                 key={stat.label}
-                variants={fadeUp}
-                initial="hidden"
-                animate={inView ? "visible" : "hidden"}
-                custom={0.3 + i * 0.1}
+                inView={inView}
+                delay={0.3 + i * 0.1}
                 className="flex flex-col items-center justify-center rounded-xl border border-card-border bg-card p-6 text-center"
               >
                 <span className="mb-1 font-mono text-3xl text-accent md:text-4xl">
@@ -126,7 +107,7 @@ export default function About() {
                 <span className="font-mono text-xs text-muted-foreground">
                   {stat.label}
                 </span>
-              </motion.div>
+              </FadeIn>
             ))}
           </div>
         </div>
