@@ -131,16 +131,6 @@
   --color-on-accent: var(--on-accent);
   --color-nav: var(--nav-bg);
 
-  /* Legacy aliases, removed once every component is migrated. */
-  --color-background: var(--page);
-  --color-foreground: var(--label);
-  --color-muted: var(--label-3);
-  --color-muted-foreground: var(--label-2);
-  --color-card: var(--surface);
-  --color-card-border: var(--separator);
-  --color-card-border-hover: var(--separator);
-  --font-serif: var(--font-sans);
-
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
 
