@@ -22,7 +22,7 @@ export default function Hero() {
       />
 
       <div className="relative mx-auto flex max-w-[1080px] flex-col items-center px-[25px] pt-32 pb-16 text-center md:items-start md:pt-40 md:pb-24 md:text-left lg:px-10">
-        {/* App icon tile (decorative; replaces the profile photo) */}
+        {/* App icon tile (decorative) */}
         <FadeIn inView y={12} aria-hidden="true" className="mb-6 md:mb-8">
           <div
             className="flex h-24 w-24 items-center justify-center rounded-[22%] text-[34px] font-bold tracking-tight text-white shadow-[var(--icon-hairline),var(--shadow-md)] md:h-[120px] md:w-[120px] md:text-[42px]"

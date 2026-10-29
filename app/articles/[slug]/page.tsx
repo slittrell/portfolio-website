@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
-import profileImage from "@/public/images/profile.webp";
 import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 import { formatDate, getAllArticles, getArticleBySlug } from "@/lib/articles";
@@ -87,14 +85,6 @@ export default async function ArticlePage({ params }: Props) {
             </p>
           )}
           <div className="flex items-center gap-4">
-            <div className="relative h-10 w-10 overflow-hidden rounded-full">
-              <Image
-                src={profileImage}
-                alt={SITE.fullName}
-                fill
-                className="object-cover"
-              />
-            </div>
             <div>
               <p className="text-sm font-medium text-foreground">
                 {SITE.name}

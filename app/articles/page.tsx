@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
-import profileImage from "@/public/images/profile.webp";
 import { ArrowLeft } from "lucide-react";
 import { formatDate, getAllArticles } from "@/lib/articles";
 import { SITE } from "@/lib/data";
@@ -36,14 +34,6 @@ export default function ArticlesPage() {
       <main id="main" className="mx-auto max-w-2xl px-6 py-16 md:py-24">
         {/* Profile header -- Substack-style */}
         <div className="mb-16 flex flex-col items-center text-center">
-          <div className="relative mb-6 h-20 w-20 overflow-hidden rounded-full">
-            <Image
-              src={profileImage}
-              alt={SITE.fullName}
-              fill
-              className="object-cover"
-            />
-          </div>
           <h1 className="mb-2 font-serif text-3xl text-foreground md:text-4xl text-balance">
             {`${SITE.name}'s Writing`}
           </h1>
