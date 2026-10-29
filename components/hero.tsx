@@ -2,11 +2,10 @@ import { ArrowDown, Download } from "lucide-react";
 import { HERO, RESUME_PDF } from "@/lib/data";
 import { asset } from "@/lib/asset";
 import FadeIn from "@/components/fade-in";
+import { CONTAINER, EYEBROW, PILL_LG, PILL_PRIMARY, PILL_TINTED } from "@/lib/ui";
 
-const PILL =
-  "inline-flex h-11 items-center gap-2 rounded-pill px-5 text-[15px] font-semibold transition-[background-color,transform] duration-200 ease-apple active:scale-[.98]";
-const PRIMARY_PILL = `${PILL} bg-accent-fill text-on-accent hover:bg-accent-fill-hover`;
-const TINTED_PILL = `${PILL} bg-accent-tint text-accent-text hover:bg-accent-tint-hover`;
+const PRIMARY = `${PILL_LG} ${PILL_PRIMARY}`;
+const TINTED = `${PILL_LG} ${PILL_TINTED}`;
 
 export default function Hero() {
   return (
@@ -21,7 +20,7 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative mx-auto flex max-w-[1080px] flex-col items-center px-[25px] pt-32 pb-16 text-center md:items-start md:pt-40 md:pb-24 md:text-left lg:px-10">
+      <div className={`relative flex flex-col items-center pt-32 pb-16 text-center md:items-start md:pt-40 md:pb-24 md:text-left ${CONTAINER}`}>
         {/* App icon tile (decorative) */}
         <FadeIn inView y={12} aria-hidden="true" className="mb-6 md:mb-8">
           <div
@@ -38,7 +37,7 @@ export default function Hero() {
           inView
           delay={0.05}
           y={12}
-          className="mb-3 text-[12px] font-semibold uppercase tracking-[0.06em] text-accent-text md:text-[13px]"
+          className={`mb-3 text-accent-text ${EYEBROW}`}
         >
           {HERO.tag}
         </FadeIn>
@@ -65,7 +64,7 @@ export default function Hero() {
           y={12}
           className="flex flex-wrap justify-center gap-3 md:justify-start"
         >
-          <a href="#projects" className={PRIMARY_PILL}>
+          <a href="#projects" className={PRIMARY}>
             View Projects
             <ArrowDown size={16} aria-hidden="true" />
           </a>
@@ -75,13 +74,13 @@ export default function Hero() {
               download
               target="_blank"
               rel="noopener noreferrer"
-              className={TINTED_PILL}
+              className={TINTED}
             >
               Download Resume
               <Download size={16} aria-hidden="true" />
             </a>
           ) : (
-            <a href="#resume" className={TINTED_PILL}>
+            <a href="#resume" className={TINTED}>
               View Experience
               <ArrowDown size={16} aria-hidden="true" />
             </a>
