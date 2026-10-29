@@ -42,7 +42,7 @@ export default function About() {
               {STATS.map((stat, i) => (
                 <div
                   key={stat.label}
-                  className={`flex w-[42%] shrink-0 snap-start flex-col items-center gap-1.5 px-4 text-center sm:w-[30%] md:w-auto ${
+                  className={`flex min-w-[38%] shrink-0 snap-start flex-col items-center gap-1.5 px-5 text-center whitespace-nowrap sm:min-w-[30%] md:min-w-0 ${
                     i > 0 ? "border-l border-separator" : ""
                   }`}
                 >
