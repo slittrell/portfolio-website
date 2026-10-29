@@ -1,46 +1,15 @@
-"use client";
-
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
+import profileImage from "@/public/images/profile.webp";
 import { ArrowDown, Download } from "lucide-react";
-
-const FIRST_NAME = "Sam";
-const LAST_NAME = "Littrell";
-const SUBTITLE = "Software engineer, linguist, and lifelong learner.";
+import { HERO, RESUME_PDF, SITE } from "@/lib/data";
+import { asset } from "@/lib/asset";
+import FadeIn from "@/components/fade-in";
 
 export default function Hero() {
-  const reduceMotion = useReducedMotion();
-
-  const wordVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: reduceMotion ? 0 : 0.3 + i * 0.3,
-        duration: reduceMotion ? 0 : 0.5,
-        ease: [0.25, 0.4, 0.25, 1] as const,
-      },
-    }),
-  };
-
-  const fadeUp = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (delay: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: reduceMotion ? 0 : delay,
-        duration: reduceMotion ? 0 : 0.5,
-        ease: [0.25, 0.4, 0.25, 1] as const,
-      },
-    }),
-  };
-
   return (
     <section
+      id="top"
       className="relative flex min-h-screen items-center overflow-hidden"
-      aria-label="Hero"
     >
       {/* Faint dot grid background */}
       <div
@@ -55,52 +24,52 @@ export default function Hero() {
       <div className="relative mx-auto flex w-full max-w-5xl flex-col items-center gap-12 px-6 py-24 md:flex-row md:gap-16 md:py-0">
         {/* Left content */}
         <div className="flex-[3]">
-          <motion.span
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={0.1}
+          <FadeIn
+            as="span"
+            inView
+            delay={0.1}
+            y={20}
             className="mb-4 inline-block font-mono text-sm text-accent"
           >
-            {"< Software Engineer />"}
-          </motion.span>
+            {HERO.tag}
+          </FadeIn>
 
           <h1 className="mb-4 font-serif text-6xl leading-tight tracking-tight text-foreground md:text-7xl lg:text-8xl">
-            <motion.span
-              variants={wordVariants}
-              initial="hidden"
-              animate="visible"
-              custom={0}
+            <FadeIn
+              as="span"
+              inView
+              delay={0.3}
+              y={20}
               className="inline-block"
             >
-              {FIRST_NAME}
-            </motion.span>{" "}
-            <motion.span
-              variants={wordVariants}
-              initial="hidden"
-              animate="visible"
-              custom={1}
+              {HERO.firstName}
+            </FadeIn>{" "}
+            <FadeIn
+              as="span"
+              inView
+              delay={0.6}
+              y={20}
               className="inline-block"
             >
-              {LAST_NAME}
-            </motion.span>
+              {HERO.lastName}
+            </FadeIn>
           </h1>
 
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={1.1}
+          <FadeIn
+            as="p"
+            inView
+            delay={1.1}
+            y={20}
             className="mb-8 max-w-md font-serif text-lg italic text-muted-foreground md:text-xl"
           >
-            {SUBTITLE}
-          </motion.p>
+            {HERO.subtitle}
+          </FadeIn>
 
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={1.4}
+          <FadeIn
+            as="div"
+            inView
+            delay={1.4}
+            y={20}
             className="flex flex-wrap gap-4"
           >
             <a
@@ -110,29 +79,41 @@ export default function Hero() {
               View Projects
               <ArrowDown size={16} />
             </a>
-            {/* REPLACE: link to your actual resume file */}
-            <a
-              href="#resume"
-              className="inline-flex items-center gap-2 rounded-lg border border-card-border px-6 py-3 font-mono text-sm text-foreground transition-colors hover:border-muted-foreground"
-            >
-              Download Resume
-              <Download size={16} />
-            </a>
-          </motion.div>
+            {RESUME_PDF ? (
+              <a
+                href={asset(RESUME_PDF)}
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-lg border border-card-border px-6 py-3 font-mono text-sm text-foreground transition-colors hover:border-muted-foreground"
+              >
+                Download Resume
+                <Download size={16} />
+              </a>
+            ) : (
+              <a
+                href="#resume"
+                className="inline-flex items-center gap-2 rounded-lg border border-card-border px-6 py-3 font-mono text-sm text-foreground transition-colors hover:border-muted-foreground"
+              >
+                View Experience
+                <ArrowDown size={16} />
+              </a>
+            )}
+          </FadeIn>
         </div>
 
         {/* Right content - Avatar */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          custom={0.8}
+        <FadeIn
+          as="div"
+          inView
+          delay={0.8}
+          y={20}
           className="relative flex-[2] flex justify-center"
         >
           {/* Rotating conic-gradient ring */}
           <div className="relative">
             <div
-              className="absolute -inset-2 animate-spin rounded-full"
+              className="absolute -inset-2 rounded-full motion-safe:animate-spin"
               style={{
                 background:
                   "conic-gradient(from 0deg, #3B82F6, transparent, #3B82F6)",
@@ -143,32 +124,33 @@ export default function Hero() {
 
             <div className="relative h-48 w-48 overflow-hidden rounded-full md:h-56 md:w-56">
               <Image
-                src="/images/profile.png"
-                alt="Samuel Littrell"
+                src={profileImage}
+                alt={SITE.fullName}
                 fill
                 className="object-cover"
                 priority
+                sizes="224px"
               />
             </div>
           </div>
 
-          {/* Available for work badge */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={1.6}
+          {/* TODO(Samuel): keep the "Available for work" badge alongside a full-time role? */}
+          <FadeIn
+            as="div"
+            inView
+            delay={1.6}
+            y={20}
             className="absolute -bottom-2 right-4 flex items-center gap-2 rounded-full border border-card-border bg-card px-4 py-2 md:right-8"
           >
             <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+              <span className="absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75 motion-safe:animate-ping" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
             </span>
             <span className="font-mono text-xs text-muted-foreground">
               Available for work
             </span>
-          </motion.div>
-        </motion.div>
+          </FadeIn>
+        </FadeIn>
       </div>
     </section>
   );

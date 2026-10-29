@@ -1,50 +1,35 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useInView } from "framer-motion";
 import { Download } from "lucide-react";
-import { RESUME_ENTRIES } from "@/lib/data";
+import { EDUCATION_ENTRIES, RESUME_ENTRIES, RESUME_PDF } from "@/lib/data";
+import { asset } from "@/lib/asset";
+import FadeIn from "@/components/fade-in";
 
 export default function Resume() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
-  const reduceMotion = useReducedMotion();
-
-  const fadeUp = {
-    hidden: { opacity: 0, y: 30 },
-    visible: (delay: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: reduceMotion ? 0 : delay,
-        duration: reduceMotion ? 0 : 0.5,
-        ease: [0.25, 0.4, 0.25, 1] as const,
-      },
-    }),
-  };
 
   return (
-    <section id="resume" className="py-24 md:py-32" ref={ref}>
+    <section id="resume" className="scroll-mt-20 py-24 md:py-32" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
-        <motion.span
-          variants={fadeUp}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          custom={0}
+        <FadeIn
+          as="span"
+          inView={inView}
           className="mb-3 block font-mono text-sm text-muted"
         >
           {"// resume"}
-        </motion.span>
+        </FadeIn>
 
-        <motion.h2
-          variants={fadeUp}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          custom={0.1}
+        <FadeIn
+          as="h2"
+          inView={inView}
+          delay={0.1}
           className="mb-12 font-serif text-4xl text-foreground md:text-5xl"
         >
           My experience
-        </motion.h2>
+        </FadeIn>
 
         {/* Timeline */}
         <div className="relative">
@@ -53,22 +38,12 @@ export default function Resume() {
 
           <div className="space-y-12">
             {RESUME_ENTRIES.map((entry, i) => (
-              <motion.div
+              <FadeIn
                 key={entry.dateRange}
-                initial={{ opacity: 0, x: -20 }}
-                animate={
-                  inView
-                    ? {
-                        opacity: 1,
-                        x: 0,
-                        transition: {
-                          delay: reduceMotion ? 0 : 0.2 + i * 0.15,
-                          duration: reduceMotion ? 0 : 0.5,
-                          ease: [0.25, 0.4, 0.25, 1] as const,
-                        },
-                      }
-                    : { opacity: 0, x: -20 }
-                }
+                inView={inView}
+                delay={0.2 + i * 0.15}
+                x={-20}
+                y={0}
                 className="relative pl-10 md:pl-12"
               >
                 {/* Timeline dot */}
@@ -82,7 +57,6 @@ export default function Resume() {
                     <span className="hidden text-muted md:inline">
                       {"//"}
                     </span>
-                    {/* REPLACE: your actual company names */}
                     <span className="font-mono text-sm text-accent">
                       {entry.company}
                     </span>
@@ -102,28 +76,57 @@ export default function Resume() {
                     ))}
                   </ul>
                 </div>
-              </motion.div>
+              </FadeIn>
             ))}
           </div>
         </div>
 
+        {/* Education */}
+        <FadeIn inView={inView} delay={0.6} className="mt-16">
+          <h3 className="mb-6 font-mono text-xs uppercase tracking-widest text-muted">
+            Education
+          </h3>
+          <div className="grid gap-6 md:grid-cols-2">
+            {EDUCATION_ENTRIES.map((entry) => (
+              <div
+                key={entry.degree}
+                className="rounded-xl border border-card-border bg-card p-6"
+              >
+                <h4 className="mb-1 text-lg font-medium text-foreground">
+                  {entry.degree}
+                </h4>
+                <p className="mb-3 font-mono text-sm text-accent">
+                  {entry.school}
+                </p>
+                <span className="block font-mono text-xs text-muted-foreground">
+                  {entry.dateRange}
+                  {entry.notes && ` \u00B7 ${entry.notes}`}
+                </span>
+              </div>
+            ))}
+          </div>
+        </FadeIn>
+
         {/* Download button */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          custom={0.8}
-          className="mt-12 flex justify-center"
-        >
-          {/* REPLACE: link to your actual resume PDF */}
-          <a
-            href="#"
-            className="inline-flex items-center gap-2 rounded-lg border border-card-border px-6 py-3 font-mono text-sm text-foreground transition-colors hover:border-muted-foreground"
+        {RESUME_PDF && (
+          <FadeIn
+            as="div"
+            inView={inView}
+            delay={0.8}
+            className="mt-12 flex justify-center"
           >
-            <Download size={16} />
-            Download Full Resume
-          </a>
-        </motion.div>
+            <a
+              href={asset(RESUME_PDF)}
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg border border-card-border px-6 py-3 font-mono text-sm text-foreground transition-colors hover:border-muted-foreground"
+            >
+              <Download size={16} />
+              Download Full Resume
+            </a>
+          </FadeIn>
+        )}
       </div>
     </section>
   );

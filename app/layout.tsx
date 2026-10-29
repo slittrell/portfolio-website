@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, DM_Mono, Instrument_Serif } from "next/font/google";
+import { asset } from "@/lib/asset";
+import { SITE } from "@/lib/data";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -23,18 +25,30 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Sam Littrell | Software Engineer",
-  description:
-    "Portfolio of Samuel Littrell — Associate SWE at Veeva Systems, UC Berkeley EECS graduate, and aspiring theologian.",
+  metadataBase: new URL(SITE.url),
+  title: SITE.title,
+  description: SITE.description,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: SITE.name,
+    title: SITE.title,
+    description: SITE.description,
+  },
+  twitter: {
+    card: "summary",
+    title: SITE.title,
+    description: SITE.description,
+  },
   icons: {
     icon: [
-      { url: "/favicon.ico" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: asset("/favicon.ico") },
+      { url: asset("/favicon-16x16.png"), sizes: "16x16", type: "image/png" },
+      { url: asset("/favicon-32x32.png"), sizes: "32x32", type: "image/png" },
     ],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    apple: [{ url: asset("/apple-touch-icon.png"), sizes: "180x180", type: "image/png" }],
   },
-  manifest: "/site.webmanifest",
 };
 
 export const viewport: Viewport = {
@@ -55,6 +69,16 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="font-sans antialiased" suppressHydrationWarning>
+        <noscript>
+          {/* Without JS, FadeIn content would stay at opacity 0. */}
+          <style>{"[data-fade]{opacity:1!important;transform:none!important}"}</style>
+        </noscript>
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:font-mono focus:text-sm focus:text-background"
+        >
+          Skip to content
+        </a>
         {children}
       </body>
     </html>

@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import profileImage from "@/public/images/profile.webp";
 import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
-import { getAllArticles, getArticleBySlug } from "@/lib/articles";
+import { formatDate, getAllArticles, getArticleBySlug } from "@/lib/articles";
 import ArticleContent from "@/components/article-content";
+import { SITE } from "@/lib/data";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -25,19 +27,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "Article Not Found" };
   }
 
-  return {
-    title: `${article.title} | Sam Littrell`,
-    description: article.subtitle || `An article by Samuel Littrell`,
-  };
-}
+  const title = `${article.title} | ${SITE.name}`;
+  const description = article.subtitle || `An article by ${SITE.fullName}`;
 
-function formatDate(dateStr: string) {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
+  return {
+    title,
+    description,
+    alternates: { canonical: `/articles/${slug}` },
+    openGraph: {
+      type: "article",
+      title,
+      description,
+      url: `/articles/${slug}`,
+      publishedTime: article.date,
+      authors: [SITE.fullName],
+    },
+    twitter: { card: "summary", title, description },
+  };
 }
 
 export default async function ArticlePage({ params }: Props) {
@@ -64,12 +70,12 @@ export default async function ArticlePage({ params }: Props) {
             href="/"
             className="font-mono text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
-            sam.littrell
+            Home
           </Link>
         </div>
       </header>
 
-      <main className="mx-auto max-w-2xl px-6 py-16 md:py-24">
+      <main id="main" className="mx-auto max-w-2xl px-6 py-16 md:py-24">
         {/* Article header */}
         <header className="mb-12 border-b border-card-border pb-12">
           <h1 className="mb-3 font-serif text-3xl text-foreground md:text-4xl lg:text-5xl text-balance">
@@ -83,18 +89,21 @@ export default async function ArticlePage({ params }: Props) {
           <div className="flex items-center gap-4">
             <div className="relative h-10 w-10 overflow-hidden rounded-full">
               <Image
-                src="/images/profile.png"
-                alt="Samuel Littrell"
+                src={profileImage}
+                alt={SITE.fullName}
                 fill
                 className="object-cover"
               />
             </div>
             <div>
               <p className="text-sm font-medium text-foreground">
-                Sam Littrell
+                {SITE.name}
               </p>
               <div className="flex items-center gap-2">
-                <time className="font-mono text-xs text-muted-foreground">
+                <time
+                  dateTime={article.date}
+                  className="font-mono text-xs text-muted-foreground"
+                >
                   {formatDate(article.date)}
                 </time>
                 {article.readingTime && (

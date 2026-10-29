@@ -2,11 +2,12 @@
   "name": "portfolio-website",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.34.5",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
     "framer-motion": "^12.0.0",
@@ -20,10 +21,13 @@
     "sharp": "^0.34.5"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.7",
     "@tailwindcss/postcss": "^4.0.0",
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "15.5.12",
     "postcss": "^8.0.0",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.7.0"

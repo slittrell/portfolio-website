@@ -1,23 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import profileImage from "@/public/images/profile.webp";
 import { ArrowLeft } from "lucide-react";
-import { getAllArticles } from "@/lib/articles";
+import { formatDate, getAllArticles } from "@/lib/articles";
+import { SITE } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Articles | Sam Littrell",
-  description:
-    "Essays and articles by Samuel Littrell on software engineering, language, theology, and more.",
+  title: `Articles | ${SITE.name}`,
+  description: `Essays and articles by ${SITE.fullName} on software engineering, language, theology, and more.`,
+  alternates: { canonical: "/articles" },
 };
-
-function formatDate(dateStr: string) {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
-}
 
 export default function ArticlesPage() {
   const articles = getAllArticles();
@@ -35,24 +28,24 @@ export default function ArticlesPage() {
             Home
           </Link>
           <span className="font-mono text-sm text-muted-foreground">
-            sam.littrell
+            {SITE.handle}
           </span>
         </div>
       </header>
 
-      <main className="mx-auto max-w-2xl px-6 py-16 md:py-24">
+      <main id="main" className="mx-auto max-w-2xl px-6 py-16 md:py-24">
         {/* Profile header -- Substack-style */}
         <div className="mb-16 flex flex-col items-center text-center">
           <div className="relative mb-6 h-20 w-20 overflow-hidden rounded-full">
             <Image
-              src="/images/profile.png"
-              alt="Samuel Littrell"
+              src={profileImage}
+              alt={SITE.fullName}
               fill
               className="object-cover"
             />
           </div>
           <h1 className="mb-2 font-serif text-3xl text-foreground md:text-4xl text-balance">
-            {"Sam Littrell's Writing"}
+            {`${SITE.name}'s Writing`}
           </h1>
           <p className="max-w-md text-muted-foreground leading-relaxed">
             Thoughts on software engineering, language learning, theology, and
@@ -80,7 +73,10 @@ export default function ArticlesPage() {
               >
                 <article>
                   <div className="mb-2 flex items-center gap-3">
-                    <time className="font-mono text-xs text-muted-foreground">
+                    <time
+                      dateTime={article.date}
+                      className="font-mono text-xs text-muted-foreground"
+                    >
                       {formatDate(article.date)}
                     </time>
                     {article.readingTime && (
@@ -113,7 +109,7 @@ export default function ArticlesPage() {
       <footer className="border-t border-card-border">
         <div className="mx-auto max-w-2xl px-6 py-6 text-center">
           <p className="font-mono text-xs text-muted">
-            {"Samuel Littrell \u00B7 2026"}
+            {`${SITE.fullName} \u00B7 ${new Date().getFullYear()}`}
           </p>
         </div>
       </footer>

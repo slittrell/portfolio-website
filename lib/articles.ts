@@ -16,6 +16,25 @@ export interface Article extends ArticleMeta {
   content: string;
 }
 
+// gray-matter parses unquoted YAML dates into Date objects; keep YYYY-MM-DD strings.
+function normalizeDate(value: unknown): string {
+  if (value instanceof Date) return value.toISOString().slice(0, 10);
+  return value ? String(value) : "";
+}
+
+/**
+ * Format a YYYY-MM-DD date for display. "2026-02-19" parses as UTC midnight,
+ * so format in UTC too; otherwise US timezones show the previous day.
+ */
+export function formatDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
+
 export function getAllArticles(): ArticleMeta[] {
   if (!fs.existsSync(articlesDirectory)) {
     return [];
@@ -34,7 +53,7 @@ export function getAllArticles(): ArticleMeta[] {
         slug,
         title: data.title || slug,
         subtitle: data.subtitle,
-        date: data.date || "",
+        date: normalizeDate(data.date),
         readingTime: data.readingTime,
       };
     });
@@ -58,7 +77,7 @@ export function getArticleBySlug(slug: string): Article | null {
     slug,
     title: data.title || slug,
     subtitle: data.subtitle,
-    date: data.date || "",
+    date: normalizeDate(data.date),
     readingTime: data.readingTime,
     content,
   };

@@ -1,10 +1,11 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
-import { Github, ExternalLink } from "lucide-react";
+import { useInView } from "framer-motion";
+import { Github, ExternalLink, Globe, Lock } from "lucide-react";
 import { PROJECTS } from "@/lib/data";
 import type { Project } from "@/lib/data";
+import FadeIn from "@/components/fade-in";
 
 function ProjectCard({
   project,
@@ -15,24 +16,11 @@ function ProjectCard({
   index: number;
   inView: boolean;
 }) {
-  const reduceMotion = useReducedMotion();
-
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 30 }}
-      animate={
-        inView
-          ? {
-              opacity: 1,
-              y: 0,
-              transition: {
-                delay: reduceMotion ? 0 : 0.2 + index * 0.15,
-                duration: reduceMotion ? 0 : 0.5,
-                ease: [0.25, 0.4, 0.25, 1] as const,
-              },
-            }
-          : { opacity: 0, y: 30 }
-      }
+    <FadeIn
+      as="article"
+      inView={inView}
+      delay={0.2 + index * 0.15}
       className="group flex flex-col rounded-xl border border-card-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-card-border-hover hover:shadow-[0_4px_24px_rgba(59,130,246,0.06)]"
     >
       {/* App icon */}
@@ -68,16 +56,29 @@ function ProjectCard({
       </div>
 
       {/* Links */}
-      <div className="flex gap-3">
-        <a
-          href={project.githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`View ${project.name} on GitHub`}
-          className="rounded-lg border border-card-border p-2 text-muted-foreground transition-colors hover:border-muted hover:text-foreground"
-        >
-          <Github size={16} />
-        </a>
+      <div className="flex items-center gap-3">
+        {project.githubUrl && (
+          <a
+            href={project.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`View ${project.name} on GitHub`}
+            className="rounded-lg border border-card-border p-2 text-muted-foreground transition-colors hover:border-muted hover:text-foreground"
+          >
+            <Github size={16} />
+          </a>
+        )}
+        {project.liveUrl && (
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Visit ${project.name}`}
+            className="rounded-lg border border-card-border p-2 text-muted-foreground transition-colors hover:border-muted hover:text-foreground"
+          >
+            <Globe size={16} />
+          </a>
+        )}
         {project.appStoreUrl && (
           <a
             href={project.appStoreUrl}
@@ -89,51 +90,40 @@ function ProjectCard({
             <ExternalLink size={16} />
           </a>
         )}
+        {project.proprietary && (
+          <span className="inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground">
+            <Lock size={12} aria-hidden="true" />
+            Proprietary work project
+          </span>
+        )}
       </div>
-    </motion.article>
+    </FadeIn>
   );
 }
 
 export default function Projects() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
-  const reduceMotion = useReducedMotion();
-
-  const fadeUp = {
-    hidden: { opacity: 0, y: 30 },
-    visible: (delay: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: reduceMotion ? 0 : delay,
-        duration: reduceMotion ? 0 : 0.5,
-        ease: [0.25, 0.4, 0.25, 1] as const,
-      },
-    }),
-  };
 
   return (
-    <section id="projects" className="py-24 md:py-32" ref={ref}>
+    <section id="projects" className="scroll-mt-20 py-24 md:py-32" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
-        <motion.span
-          variants={fadeUp}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          custom={0}
+        <FadeIn
+          as="span"
+          inView={inView}
           className="mb-3 block font-mono text-sm text-muted"
         >
           {"// projects"}
-        </motion.span>
+        </FadeIn>
 
-        <motion.h2
-          variants={fadeUp}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          custom={0.1}
+        <FadeIn
+          as="h2"
+          inView={inView}
+          delay={0.1}
           className="mb-12 font-serif text-4xl text-foreground md:text-5xl"
         >
           {"Things I've built"}
-        </motion.h2>
+        </FadeIn>
 
         <div className="grid gap-6 md:grid-cols-2">
           {PROJECTS.map((project, i) => (
