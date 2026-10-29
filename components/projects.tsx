@@ -49,7 +49,7 @@ function ProjectCard({ project }: { project: Project }) {
           <h3 className="text-[17px] leading-[1.29] font-semibold tracking-[-0.01em] text-balance text-label md:text-[19px]">
             {project.name}
           </h3>
-          <p className="truncate text-[13px] leading-[1.4] text-label-2 md:text-[14px]">
+          <p className="mt-0.5 text-[13px] leading-[1.4] text-label-2 md:text-[14px]">
             {project.tags.join(" · ")}
           </p>
         </div>
