@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { useInView } from "framer-motion";
 import { Download } from "lucide-react";
-import { RESUME_ENTRIES, RESUME_PDF } from "@/lib/data";
+import { EDUCATION_ENTRIES, RESUME_ENTRIES, RESUME_PDF } from "@/lib/data";
 import { asset } from "@/lib/asset";
 import FadeIn from "@/components/fade-in";
 
@@ -80,6 +80,32 @@ export default function Resume() {
             ))}
           </div>
         </div>
+
+        {/* Education */}
+        <FadeIn inView={inView} delay={0.6} className="mt-16">
+          <h3 className="mb-6 font-mono text-xs uppercase tracking-widest text-muted">
+            Education
+          </h3>
+          <div className="grid gap-6 md:grid-cols-2">
+            {EDUCATION_ENTRIES.map((entry) => (
+              <div
+                key={entry.degree}
+                className="rounded-xl border border-card-border bg-card p-6"
+              >
+                <h4 className="mb-1 text-lg font-medium text-foreground">
+                  {entry.degree}
+                </h4>
+                <p className="mb-3 font-mono text-sm text-accent">
+                  {entry.school}
+                </p>
+                <span className="block font-mono text-xs text-muted-foreground">
+                  {entry.dateRange}
+                  {entry.notes && ` \u00B7 ${entry.notes}`}
+                </span>
+              </div>
+            ))}
+          </div>
+        </FadeIn>
 
         {/* Download button */}
         {RESUME_PDF && (

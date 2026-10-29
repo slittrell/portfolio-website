@@ -6,10 +6,12 @@ import { Github, Linkedin, Mail } from "lucide-react";
 import { SITE, SOCIAL_LINKS } from "@/lib/data";
 import FadeIn from "@/components/fade-in";
 
+const EMAIL_ADDRESS = SOCIAL_LINKS.email.replace(/^mailto:/, "");
+
 const SOCIALS = [
-  { icon: Github, href: SOCIAL_LINKS.github, label: "GitHub" },
-  { icon: Linkedin, href: SOCIAL_LINKS.linkedin, label: "LinkedIn" },
-  { icon: Mail, href: SOCIAL_LINKS.email, label: "Email" },
+  { icon: Github, href: SOCIAL_LINKS.github, label: "GitHub", external: true },
+  { icon: Linkedin, href: SOCIAL_LINKS.linkedin, label: "LinkedIn", external: true },
+  { icon: Mail, href: SOCIAL_LINKS.email, label: "Email", external: false },
 ];
 
 export default function Footer() {
@@ -49,14 +51,23 @@ export default function Footer() {
               <a
                 key={social.label}
                 href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
+                target={social.external ? "_blank" : undefined}
+                rel={social.external ? "noopener noreferrer" : undefined}
                 aria-label={social.label}
                 className="rounded-lg border border-card-border p-3 text-muted-foreground transition-colors hover:border-accent/40 hover:text-accent"
               >
                 <social.icon size={20} />
               </a>
             ))}
+          </FadeIn>
+
+          <FadeIn as="p" inView={inView} delay={0.3} className="mt-6">
+            <a
+              href={SOCIAL_LINKS.email}
+              className="font-mono text-sm text-muted-foreground underline-offset-4 transition-colors hover:text-accent hover:underline"
+            >
+              {EMAIL_ADDRESS}
+            </a>
           </FadeIn>
         </div>
 

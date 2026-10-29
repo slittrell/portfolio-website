@@ -1,55 +1,9 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
-import { useInView, useReducedMotion } from "framer-motion";
+import { useRef } from "react";
+import { useInView } from "framer-motion";
 import { ABOUT_PARAGRAPHS, STATS } from "@/lib/data";
 import FadeIn from "@/components/fade-in";
-
-function AnimatedCounter({
-  value,
-  suffix,
-  inView,
-}: {
-  value: number;
-  suffix: string;
-  inView: boolean;
-}) {
-  const [count, setCount] = useState(0);
-  const reduceMotion = useReducedMotion();
-
-  useEffect(() => {
-    if (!inView) return;
-    if (reduceMotion) {
-      setCount(value);
-      return;
-    }
-
-    let start = 0;
-    const duration = 1500;
-    const startTime = performance.now();
-
-    const animate = (currentTime: number) => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      start = Math.floor(eased * value);
-      setCount(start);
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
-    };
-
-    requestAnimationFrame(animate);
-  }, [inView, value, reduceMotion]);
-
-  return (
-    <span>
-      {count}
-      {suffix}
-    </span>
-  );
-}
 
 export default function About() {
   const ref = useRef(null);
@@ -98,11 +52,8 @@ export default function About() {
                 className="flex flex-col items-center justify-center rounded-xl border border-card-border bg-card p-6 text-center"
               >
                 <span className="mb-1 font-mono text-3xl text-accent md:text-4xl">
-                  <AnimatedCounter
-                    value={stat.value}
-                    suffix={stat.suffix}
-                    inView={inView}
-                  />
+                  {stat.value}
+                  {stat.suffix}
                 </span>
                 <span className="font-mono text-xs text-muted-foreground">
                   {stat.label}
