@@ -9,6 +9,7 @@ import { SITE } from "@/lib/data";
 export const metadata: Metadata = {
   title: `Articles | ${SITE.name}`,
   description: `Essays and articles by ${SITE.fullName} on software engineering, language, theology, and more.`,
+  alternates: { canonical: "/articles" },
 };
 
 export default function ArticlesPage() {
