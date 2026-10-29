@@ -4,7 +4,7 @@ import Image from "next/image";
 import profileImage from "@/public/images/profile.png";
 import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
-import { getAllArticles, getArticleBySlug } from "@/lib/articles";
+import { formatDate, getAllArticles, getArticleBySlug } from "@/lib/articles";
 import ArticleContent from "@/components/article-content";
 import { SITE } from "@/lib/data";
 
@@ -27,19 +27,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "Article Not Found" };
   }
 
-  return {
-    title: `${article.title} | ${SITE.name}`,
-    description: article.subtitle || `An article by ${SITE.fullName}`,
-  };
-}
+  const title = `${article.title} | ${SITE.name}`;
+  const description = article.subtitle || `An article by ${SITE.fullName}`;
 
-function formatDate(dateStr: string) {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
+  return {
+    title,
+    description,
+    alternates: { canonical: `/articles/${slug}` },
+    openGraph: {
+      type: "article",
+      title,
+      description,
+      url: `/articles/${slug}`,
+      publishedTime: article.date,
+      authors: [SITE.fullName],
+    },
+    twitter: { card: "summary", title, description },
+  };
 }
 
 export default async function ArticlePage({ params }: Props) {
@@ -66,7 +70,7 @@ export default async function ArticlePage({ params }: Props) {
             href="/"
             className="font-mono text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
-            {SITE.handle}
+            Home
           </Link>
         </div>
       </header>
@@ -96,7 +100,10 @@ export default async function ArticlePage({ params }: Props) {
                 {SITE.name}
               </p>
               <div className="flex items-center gap-2">
-                <time className="font-mono text-xs text-muted-foreground">
+                <time
+                  dateTime={article.date}
+                  className="font-mono text-xs text-muted-foreground"
+                >
                   {formatDate(article.date)}
                 </time>
                 {article.readingTime && (

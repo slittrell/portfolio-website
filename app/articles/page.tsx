@@ -3,22 +3,13 @@ import Link from "next/link";
 import Image from "next/image";
 import profileImage from "@/public/images/profile.png";
 import { ArrowLeft } from "lucide-react";
-import { getAllArticles } from "@/lib/articles";
+import { formatDate, getAllArticles } from "@/lib/articles";
 import { SITE } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: `Articles | ${SITE.name}`,
   description: `Essays and articles by ${SITE.fullName} on software engineering, language, theology, and more.`,
 };
-
-function formatDate(dateStr: string) {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
-}
 
 export default function ArticlesPage() {
   const articles = getAllArticles();
@@ -81,7 +72,10 @@ export default function ArticlesPage() {
               >
                 <article>
                   <div className="mb-2 flex items-center gap-3">
-                    <time className="font-mono text-xs text-muted-foreground">
+                    <time
+                      dateTime={article.date}
+                      className="font-mono text-xs text-muted-foreground"
+                    >
                       {formatDate(article.date)}
                     </time>
                     {article.readingTime && (
