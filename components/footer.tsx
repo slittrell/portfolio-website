@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { Github, Linkedin, Mail } from "lucide-react";
-import { SOCIAL_LINKS } from "@/lib/data";
+import { SITE, SOCIAL_LINKS } from "@/lib/data";
 
 const SOCIALS = [
   { icon: Github, href: SOCIAL_LINKS.github, label: "GitHub" },
@@ -86,7 +86,7 @@ export default function Footer() {
           className="mt-16 border-t border-card-border pt-6 text-center"
         >
           <p className="font-mono text-xs text-muted">
-            {"Built with Next.js & \u2665 by Sam Littrell \u00B7 2026"}
+            {`Built with Next.js & \u2665 by ${SITE.name} \u00B7 ${new Date().getFullYear()}`}
           </p>
         </motion.div>
       </div>

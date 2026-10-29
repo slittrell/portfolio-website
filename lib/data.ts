@@ -2,8 +2,11 @@ export interface Project {
   name: string;
   description: string;
   tags: string[];
-  githubUrl: string;
+  githubUrl?: string;
   appStoreUrl?: string;
+  liveUrl?: string;
+  /** Closed-source work project; shows a label instead of a repo link. */
+  proprietary?: boolean;
   initials: string;
   gradientFrom: string;
   gradientTo: string;
@@ -28,6 +31,31 @@ export interface Stat {
   suffix: string;
   label: string;
 }
+
+export const SITE = {
+  name: "Sam Littrell",
+  fullName: "Samuel Littrell",
+  handle: "sam.littrell",
+  title: "Sam Littrell | Software Engineer",
+  description:
+    "Portfolio of Samuel Littrell \u2014 Associate SWE at Veeva Systems, UC Berkeley EECS graduate, and aspiring theologian.",
+  // TODO(Samuel): confirm the canonical production URL (GitHub Pages, Firebase, Vercel, or a custom domain).
+  url: "https://slittrell.github.io/portfolio-website",
+};
+
+export const HERO = {
+  tag: "< Software Engineer />",
+  firstName: "Sam",
+  lastName: "Littrell",
+  subtitle: "Software engineer, linguist, and lifelong learner.",
+};
+
+export const ABOUT_PARAGRAPHS = [
+  "I'm a software engineer at Veeva Systems working on Vault CRM Events Management. I graduated from UC Berkeley with a B.S. in Electrical Engineering & Computer Sciences.",
+  // TODO(Samuel): confirm Korean proficiency wording.
+  "I speak three languages \u2014 English, Mandarin Chinese (Advanced Mid proficiency), and Korean. I was a two-time NSLI-Y Merit Scholarship recipient through the U.S. Department of State, studying Mandarin immersively in China.",
+  "Outside of engineering, I\u2019m currently pursuing a Master of Divinity at The Southern Baptist Theological Seminary. I\u2019m passionate about the intersection of technology, language, and service.",
+];
 
 export const NAV_LINKS = [
   { label: "About", href: "#about" },

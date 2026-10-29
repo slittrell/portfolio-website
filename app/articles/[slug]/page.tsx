@@ -6,6 +6,7 @@ import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getAllArticles, getArticleBySlug } from "@/lib/articles";
 import ArticleContent from "@/components/article-content";
+import { SITE } from "@/lib/data";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -27,8 +28,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${article.title} | Sam Littrell`,
-    description: article.subtitle || `An article by Samuel Littrell`,
+    title: `${article.title} | ${SITE.name}`,
+    description: article.subtitle || `An article by ${SITE.fullName}`,
   };
 }
 
@@ -65,7 +66,7 @@ export default async function ArticlePage({ params }: Props) {
             href="/"
             className="font-mono text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
-            sam.littrell
+            {SITE.handle}
           </Link>
         </div>
       </header>
@@ -85,14 +86,14 @@ export default async function ArticlePage({ params }: Props) {
             <div className="relative h-10 w-10 overflow-hidden rounded-full">
               <Image
                 src={profileImage}
-                alt="Samuel Littrell"
+                alt={SITE.fullName}
                 fill
                 className="object-cover"
               />
             </div>
             <div>
               <p className="text-sm font-medium text-foreground">
-                Sam Littrell
+                {SITE.name}
               </p>
               <div className="flex items-center gap-2">
                 <time className="font-mono text-xs text-muted-foreground">

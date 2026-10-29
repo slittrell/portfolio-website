@@ -4,10 +4,7 @@ import Image from "next/image";
 import profileImage from "@/public/images/profile.png";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowDown, Download } from "lucide-react";
-
-const FIRST_NAME = "Sam";
-const LAST_NAME = "Littrell";
-const SUBTITLE = "Software engineer, linguist, and lifelong learner.";
+import { HERO, SITE } from "@/lib/data";
 
 export default function Hero() {
   const reduceMotion = useReducedMotion();
@@ -63,7 +60,7 @@ export default function Hero() {
             custom={0.1}
             className="mb-4 inline-block font-mono text-sm text-accent"
           >
-            {"< Software Engineer />"}
+            {HERO.tag}
           </motion.span>
 
           <h1 className="mb-4 font-serif text-6xl leading-tight tracking-tight text-foreground md:text-7xl lg:text-8xl">
@@ -74,7 +71,7 @@ export default function Hero() {
               custom={0}
               className="inline-block"
             >
-              {FIRST_NAME}
+              {HERO.firstName}
             </motion.span>{" "}
             <motion.span
               variants={wordVariants}
@@ -83,7 +80,7 @@ export default function Hero() {
               custom={1}
               className="inline-block"
             >
-              {LAST_NAME}
+              {HERO.lastName}
             </motion.span>
           </h1>
 
@@ -94,7 +91,7 @@ export default function Hero() {
             custom={1.1}
             className="mb-8 max-w-md font-serif text-lg italic text-muted-foreground md:text-xl"
           >
-            {SUBTITLE}
+            {HERO.subtitle}
           </motion.p>
 
           <motion.div
@@ -145,7 +142,7 @@ export default function Hero() {
             <div className="relative h-48 w-48 overflow-hidden rounded-full md:h-56 md:w-56">
               <Image
                 src={profileImage}
-                alt="Samuel Littrell"
+                alt={SITE.fullName}
                 fill
                 className="object-cover"
                 priority

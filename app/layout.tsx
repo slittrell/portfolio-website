@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, DM_Mono, Instrument_Serif } from "next/font/google";
 import { asset } from "@/lib/asset";
+import { SITE } from "@/lib/data";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -24,9 +25,8 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Sam Littrell | Software Engineer",
-  description:
-    "Portfolio of Samuel Littrell — Associate SWE at Veeva Systems, UC Berkeley EECS graduate, and aspiring theologian.",
+  title: SITE.title,
+  description: SITE.description,
   icons: {
     icon: [
       { url: asset("/favicon.ico") },

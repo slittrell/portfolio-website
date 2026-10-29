@@ -4,11 +4,11 @@ import Image from "next/image";
 import profileImage from "@/public/images/profile.png";
 import { ArrowLeft } from "lucide-react";
 import { getAllArticles } from "@/lib/articles";
+import { SITE } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Articles | Sam Littrell",
-  description:
-    "Essays and articles by Samuel Littrell on software engineering, language, theology, and more.",
+  title: `Articles | ${SITE.name}`,
+  description: `Essays and articles by ${SITE.fullName} on software engineering, language, theology, and more.`,
 };
 
 function formatDate(dateStr: string) {
@@ -36,7 +36,7 @@ export default function ArticlesPage() {
             Home
           </Link>
           <span className="font-mono text-sm text-muted-foreground">
-            sam.littrell
+            {SITE.handle}
           </span>
         </div>
       </header>
@@ -47,13 +47,13 @@ export default function ArticlesPage() {
           <div className="relative mb-6 h-20 w-20 overflow-hidden rounded-full">
             <Image
               src={profileImage}
-              alt="Samuel Littrell"
+              alt={SITE.fullName}
               fill
               className="object-cover"
             />
           </div>
           <h1 className="mb-2 font-serif text-3xl text-foreground md:text-4xl text-balance">
-            {"Sam Littrell's Writing"}
+            {`${SITE.name}'s Writing`}
           </h1>
           <p className="max-w-md text-muted-foreground leading-relaxed">
             Thoughts on software engineering, language learning, theology, and
@@ -114,7 +114,7 @@ export default function ArticlesPage() {
       <footer className="border-t border-card-border">
         <div className="mx-auto max-w-2xl px-6 py-6 text-center">
           <p className="font-mono text-xs text-muted">
-            {"Samuel Littrell \u00B7 2026"}
+            {`${SITE.fullName} \u00B7 ${new Date().getFullYear()}`}
           </p>
         </div>
       </footer>

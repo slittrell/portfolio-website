@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
-import { STATS } from "@/lib/data";
+import { ABOUT_PARAGRAPHS, STATS } from "@/lib/data";
 
 function AnimatedCounter({
   value,
@@ -100,21 +100,9 @@ export default function About() {
             custom={0.2}
             className="flex-1 space-y-5 text-muted-foreground leading-relaxed"
           >
-            <p>
-              {
-                "I'm a software engineer at Veeva Systems working on Vault CRM Events Management. I graduated from UC Berkeley with a B.S. in Electrical Engineering & Computer Sciences."
-              }
-            </p>
-            <p>
-              {
-                "I speak three languages \u2014 English, Mandarin Chinese (Advanced Mid proficiency), and Korean. I was a two-time NSLI-Y Merit Scholarship recipient through the U.S. Department of State, studying Mandarin immersively in China."
-              }
-            </p>
-            <p>
-              {
-                "Outside of engineering, I\u2019m currently pursuing a Master of Divinity at The Southern Baptist Theological Seminary. I\u2019m passionate about the intersection of technology, language, and service."
-              }
-            </p>
+            {ABOUT_PARAGRAPHS.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
           </motion.div>
 
           {/* Stats grid */}

@@ -1,11 +1,12 @@
 import type { MetadataRoute } from "next";
 import { asset } from "@/lib/asset";
+import { SITE } from "@/lib/data";
 
 export const dynamic = "force-static";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Sam Littrell",
+    name: SITE.name,
     short_name: "SL",
     icons: [
       { src: asset("/android-chrome-192x192.png"), sizes: "192x192", type: "image/png" },
