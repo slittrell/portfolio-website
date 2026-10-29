@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion, type HTMLMotionProps } from "framer-motion";
 
-const EASE = [0.25, 0.4, 0.25, 1] as const;
+const EASE = [0.25, 0.1, 0.25, 1] as const;
 
 type FadeInProps = Omit<
   HTMLMotionProps<"div">,
@@ -25,9 +25,9 @@ export default function FadeIn({
   as = "div",
   inView,
   delay = 0,
-  duration = 0.5,
+  duration = 0.35,
   x = 0,
-  y = 30,
+  y = 12,
   ...props
 }: FadeInProps) {
   const reduceMotion = useReducedMotion();

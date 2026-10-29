@@ -4,8 +4,11 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { ChevronRight, Menu, X } from "lucide-react";
 import { NAV_LINKS, SITE } from "@/lib/data";
+import ThemeToggle from "@/components/theme-toggle";
+
+const BAR_BLUR = "bg-nav backdrop-blur-[20px] backdrop-saturate-[1.8]";
 
 function NavItem({
   href,
@@ -37,20 +40,12 @@ function NavItem({
 }
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const navRef = useRef<HTMLElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const reduceMotion = useReducedMotion();
   const isHome = usePathname() === "/";
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   // Highlight the section crossing a band just above the middle of the viewport.
   useEffect(() => {
@@ -99,103 +94,120 @@ export default function Navbar() {
   const closeMenu = () => setMobileOpen(false);
 
   return (
-    <nav
-      ref={navRef}
-      aria-label="Main"
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled || mobileOpen
-          ? "bg-background/80 backdrop-blur-md border-b border-card-border"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-        <NavItem
-          href="#top"
-          isHome={isHome}
-          className="font-mono text-sm tracking-wide text-muted-foreground transition-colors hover:text-foreground"
-        >
-          {SITE.handle}
-        </NavItem>
-
-        {/* Desktop nav */}
-        <div className="hidden items-center gap-8 md:flex">
-          {NAV_LINKS.map((link) => (
-            <NavItem
-              key={link.href}
-              href={link.href}
-              isHome={isHome}
-              className={`relative font-mono text-sm transition-colors ${
-                activeSection === link.href
-                  ? "text-foreground"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              {link.label}
-              {activeSection === link.href && (
-                <motion.span
-                  layoutId="nav-underline"
-                  className="absolute -bottom-1 left-0 right-0 h-px bg-accent"
-                  transition={
-                    reduceMotion
-                      ? { duration: 0 }
-                      : { type: "spring", stiffness: 300, damping: 30 }
-                  }
-                />
-              )}
-            </NavItem>
-          ))}
-          <Link
-            href="/articles"
-            className="relative font-mono text-sm text-muted-foreground transition-colors hover:text-foreground"
+    <nav ref={navRef} aria-label="Main" className="fixed top-0 left-0 right-0 z-50">
+      <div className={`border-b-[0.5px] border-separator ${BAR_BLUR}`}>
+        <div className="mx-auto flex h-[52px] max-w-[1080px] items-center justify-between gap-4 px-[25px] lg:px-10">
+          <NavItem
+            href="#top"
+            isHome={isHome}
+            className="text-[15px] font-semibold tracking-[-0.01em] text-label transition-opacity duration-200 hover:opacity-70"
           >
-            Articles
-          </Link>
-        </div>
+            {SITE.handle}
+          </NavItem>
 
-        {/* Mobile hamburger */}
-        <button
-          ref={toggleRef}
-          type="button"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="-m-3 p-3 text-muted-foreground transition-colors hover:text-foreground md:hidden"
-          aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          aria-expanded={mobileOpen}
-          aria-controls="mobile-menu"
-        >
-          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
+          <div className="flex items-center gap-2">
+            {/* Desktop: segmented tab group */}
+            <div className="hidden items-center gap-2 md:flex">
+              <div className="flex items-center rounded-pill bg-fill p-1">
+                {NAV_LINKS.map((link) => {
+                  const active = activeSection === link.href;
+                  return (
+                    <NavItem
+                      key={link.href}
+                      href={link.href}
+                      isHome={isHome}
+                      className={`relative rounded-pill px-3.5 py-1.5 text-[13px] font-medium transition-colors duration-200 ${
+                        active ? "text-label" : "text-label-2 hover:text-label"
+                      }`}
+                    >
+                      {active && (
+                        <motion.span
+                          layoutId="nav-pill"
+                          aria-hidden="true"
+                          className="absolute inset-0 rounded-pill bg-surface shadow-sm"
+                          transition={
+                            reduceMotion
+                              ? { duration: 0 }
+                              : { type: "spring", stiffness: 400, damping: 34 }
+                          }
+                        />
+                      )}
+                      <span className="relative">{link.label}</span>
+                    </NavItem>
+                  );
+                })}
+              </div>
+              <Link
+                href="/articles"
+                className="rounded-pill px-3 py-1.5 text-[13px] font-medium text-label-2 transition-colors duration-200 hover:text-label"
+              >
+                Articles
+              </Link>
+            </div>
+
+            <ThemeToggle />
+
+            {/* Mobile hamburger */}
+            <button
+              ref={toggleRef}
+              type="button"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full text-label transition-colors duration-200 hover:bg-fill md:hidden"
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-menu"
+            >
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* Mobile drawer */}
+      {/* Mobile sheet */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
             id="mobile-menu"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: reduceMotion ? 0 : 0.2 }}
-            className="overflow-hidden border-b border-card-border bg-background/95 backdrop-blur-md md:hidden"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: reduceMotion ? 0 : 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+            className={`rounded-b-xl border-b-[0.5px] border-separator shadow-lift md:hidden ${BAR_BLUR}`}
           >
-            <div className="flex flex-col px-6 py-4">
-              {NAV_LINKS.map((link) => (
-                <NavItem
-                  key={link.href}
-                  href={link.href}
-                  isHome={isHome}
-                  onClick={closeMenu}
-                  className="py-3 text-left font-mono text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {link.label}
-                </NavItem>
-              ))}
-              <Link
-                href="/articles"
-                onClick={closeMenu}
-                className="py-3 text-left font-mono text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                Articles
-              </Link>
+            <ul className="px-[25px] pt-1">
+              {[...NAV_LINKS, { label: "Articles", href: "/articles" }].map(
+                (link) => {
+                  const rowClass =
+                    "flex min-h-11 items-center justify-between border-b-[0.5px] border-separator py-2.5 text-[17px] text-label";
+                  const content = (
+                    <>
+                      {link.label}
+                      <ChevronRight size={18} aria-hidden="true" className="text-label-3" />
+                    </>
+                  );
+                  return (
+                    <li key={link.href}>
+                      {link.href.startsWith("#") ? (
+                        <NavItem
+                          href={link.href}
+                          isHome={isHome}
+                          onClick={closeMenu}
+                          className={rowClass}
+                        >
+                          {content}
+                        </NavItem>
+                      ) : (
+                        <Link href={link.href} onClick={closeMenu} className={rowClass}>
+                          {content}
+                        </Link>
+                      )}
+                    </li>
+                  );
+                }
+              )}
+            </ul>
+            <div className="px-[25px] pt-4 pb-5">
+              <ThemeToggle variant="segmented" />
             </div>
           </motion.div>
         )}

@@ -1,19 +1,152 @@
 @import "tailwindcss";
 
-@theme {
-  --color-background: #0A0A0A;
-  --color-foreground: #E8E4DE;
-  --color-accent: #3B82F6;
-  --color-accent-hover: #2563EB;
-  --color-muted: #8B93A1; /* ~6:1 on background, WCAG AA for small text */
-  --color-muted-foreground: #9CA3AF;
-  --color-card: #111111;
-  --color-card-border: #1F1F1F;
-  --color-card-border-hover: #2A2A2A;
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-  --font-sans: var(--font-dm-sans);
-  --font-serif: var(--font-instrument-serif);
-  --font-mono: var(--font-dm-mono);
+/*
+ * Semantic tokens, modeled on the App Store web app (apps.apple.com).
+ * The inline script in app/layout.tsx sets <html data-theme="light|dark"> before paint.
+ * Without JS, the prefers-color-scheme block below applies the dark values.
+ */
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+  --page: #ffffff;
+  --grouped: #f5f5f7;
+  --surface: #ffffff;
+  --surface-hover: #ffffff;
+  --surface-2: #fafafa;
+  --label: rgba(0, 0, 0, 0.88);
+  --label-2: rgba(0, 0, 0, 0.64); /* ~6.8:1 on white */
+  --label-3: rgba(0, 0, 0, 0.55); /* ~4.6:1 on #f5f5f7, AA for small text */
+  --separator: rgba(0, 0, 0, 0.1);
+  --fill: rgba(0, 0, 0, 0.05);
+  --accent: #007aff;
+  --accent-text: #0040dd;
+  --accent-hover: #0045b7;
+  --accent-press: #005cd7;
+  --accent-tint: rgba(0, 122, 255, 0.06);
+  --accent-tint-hover: rgba(0, 122, 255, 0.12);
+  /* Button fills: white on #007aff is only ~4:1, so filled buttons use apple.com's #0071e3 (~4.7:1). */
+  --accent-fill: #0071e3;
+  --accent-fill-hover: #0062c4;
+  --on-accent: #ffffff;
+  --nav-bg: rgba(250, 250, 252, 0.8);
+  --shadow-sm: 0 3px 9px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 3px 20px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.1);
+  --hairline: inset 0 0 0 0.5px rgba(0, 0, 0, 0.1);
+  --icon-hairline: inset 0 0 0 0.5px rgba(0, 0, 0, 0.1);
+  --card-shadow: var(--shadow-sm);
+  --card-shadow-hover: var(--shadow-md);
+  --focus-ring: color-mix(in srgb, var(--accent) 60%, transparent);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  /* TODO(Samuel): #000 page with #1f1f1f cards (iOS look), or the App Store web's literal #1f1f1f page with #2c2c2e cards? */
+  --page: #000000;
+  --grouped: #141414;
+  --surface: #1f1f1f;
+  --surface-hover: #282828;
+  --surface-2: #282828;
+  --label: rgba(255, 255, 255, 0.92);
+  --label-2: rgba(255, 255, 255, 0.64);
+  --label-3: rgba(255, 255, 255, 0.55);
+  --separator: rgba(255, 255, 255, 0.12);
+  --fill: rgba(255, 255, 255, 0.08);
+  --accent: #0a84ff;
+  --accent-text: #409cff;
+  --accent-hover: #409cff;
+  --accent-press: #0071e3;
+  --accent-tint: rgba(10, 132, 255, 0.16);
+  --accent-tint-hover: rgba(10, 132, 255, 0.24);
+  --accent-fill: #0071e3;
+  --accent-fill-hover: #0062c4;
+  --on-accent: #ffffff;
+  --nav-bg: rgba(22, 22, 23, 0.8);
+  --shadow-sm: 0 3px 9px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 3px 20px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.6);
+  --hairline: inset 0 0 0 0.5px rgba(255, 255, 255, 0.12);
+  --icon-hairline: inset 0 0 0 0.5px rgba(255, 255, 255, 0.15);
+  /* Shadows barely show on black, so dark cards get a hairline edge instead. */
+  --card-shadow: var(--hairline), var(--shadow-sm);
+  --card-shadow-hover: inset 0 0 0 0.5px rgba(255, 255, 255, 0.18), var(--shadow-md);
+  --focus-ring: color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+/* No-JS fallback: same values as [data-theme="dark"]. Keep the two blocks in sync. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --page: #000000;
+    --grouped: #141414;
+    --surface: #1f1f1f;
+    --surface-hover: #282828;
+    --surface-2: #282828;
+    --label: rgba(255, 255, 255, 0.92);
+    --label-2: rgba(255, 255, 255, 0.64);
+    --label-3: rgba(255, 255, 255, 0.55);
+    --separator: rgba(255, 255, 255, 0.12);
+    --fill: rgba(255, 255, 255, 0.08);
+    --accent: #0a84ff;
+    --accent-text: #409cff;
+    --accent-hover: #409cff;
+    --accent-press: #0071e3;
+    --accent-tint: rgba(10, 132, 255, 0.16);
+    --accent-tint-hover: rgba(10, 132, 255, 0.24);
+    --accent-fill: #0071e3;
+    --accent-fill-hover: #0062c4;
+    --on-accent: #ffffff;
+    --nav-bg: rgba(22, 22, 23, 0.8);
+    --shadow-sm: 0 3px 9px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 3px 20px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.6);
+    --hairline: inset 0 0 0 0.5px rgba(255, 255, 255, 0.12);
+    --icon-hairline: inset 0 0 0 0.5px rgba(255, 255, 255, 0.15);
+    --card-shadow: var(--hairline), var(--shadow-sm);
+    --card-shadow-hover: inset 0 0 0 0.5px rgba(255, 255, 255, 0.18), var(--shadow-md);
+    --focus-ring: color-mix(in srgb, var(--accent) 70%, transparent);
+  }
+}
+
+@theme inline {
+  --color-page: var(--page);
+  --color-grouped: var(--grouped);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-surface-2: var(--surface-2);
+  --color-label: var(--label);
+  --color-label-2: var(--label-2);
+  --color-label-3: var(--label-3);
+  --color-separator: var(--separator);
+  --color-fill: var(--fill);
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-tint: var(--accent-tint);
+  --color-accent-tint-hover: var(--accent-tint-hover);
+  --color-accent-fill: var(--accent-fill);
+  --color-accent-fill-hover: var(--accent-fill-hover);
+  --color-on-accent: var(--on-accent);
+  --color-nav: var(--nav-bg);
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
+
+  --radius-xs: 5px;
+  --radius-sm: 9px;
+  --radius-md: 12px;
+  --radius-lg: 17px;
+  --radius-xl: 24px;
+  --radius-pill: 1000px;
+
+  --shadow-card: var(--card-shadow);
+  --shadow-card-hover: var(--card-shadow-hover);
+  --shadow-lift: var(--shadow-lg);
+  --shadow-hairline: var(--icon-hairline);
+
+  --ease-apple: cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -22,101 +155,134 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 body {
-  background-color: var(--color-background);
-  color: var(--color-foreground);
+  background-color: var(--page);
+  color: var(--label);
 }
 
-/* Subtle grain texture overlay */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 256px 256px;
+/* Crossfade colors only while the theme is switching (never on first paint). See lib/theme.ts. */
+.theme-switching,
+.theme-switching * {
+  transition:
+    background-color 0.25s var(--ease-apple),
+    color 0.25s var(--ease-apple) !important;
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-background);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-card-border);
-  border-radius: 3px;
+  background: var(--separator);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-muted);
+  background: var(--label-3);
 }
 
-/* Focus visible styles */
 *:focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 3px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
-/* Article prose styles (Substack-inspired) */
+/* App Store shelf: snap scrolling, hidden scrollbar, trailing fade. */
+.shelf {
+  scrollbar-width: none;
+  mask-image: linear-gradient(90deg, #000 calc(95% - 8px), transparent 100%);
+}
+
+.shelf::-webkit-scrollbar {
+  display: none;
+}
+
+.shelf[data-at-end="true"] {
+  mask-image: none;
+}
+
+/* Article prose: editorial story page */
 .article-prose {
-  color: var(--color-foreground);
-  font-size: 1.125rem;
-  line-height: 1.75;
+  color: var(--label);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+  .article-prose {
+    font-size: 1.1875rem;
+  }
 }
 
 .article-prose h1,
 .article-prose h2,
 .article-prose h3,
 .article-prose h4 {
-  font-family: var(--font-serif);
-  color: var(--color-foreground);
+  color: var(--label);
+  font-weight: 700;
   margin-top: 2em;
-  margin-bottom: 0.75em;
-  line-height: 1.3;
+  margin-bottom: 0.6em;
+  line-height: 1.2;
+  text-wrap: balance;
 }
 
 .article-prose h1 {
-  font-size: 2rem;
+  font-size: 1.75em;
+  letter-spacing: -0.02em;
 }
 
 .article-prose h2 {
-  font-size: 1.5rem;
+  font-size: 1.4em;
+  letter-spacing: -0.015em;
 }
 
 .article-prose h3 {
-  font-size: 1.25rem;
+  font-size: 1.15em;
+  letter-spacing: -0.01em;
 }
 
 .article-prose p {
-  margin-bottom: 1.5em;
+  margin-bottom: 1.25em;
 }
 
 .article-prose a {
-  color: var(--color-accent);
+  color: var(--accent-text);
   text-decoration: underline;
-  text-underline-offset: 2px;
-  transition: color 0.15s;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: opacity 0.2s var(--ease-apple);
 }
 
 .article-prose a:hover {
-  color: var(--color-accent-hover);
+  opacity: 0.7;
 }
 
 .article-prose ul,
 .article-prose ol {
-  margin-bottom: 1.5em;
+  margin-bottom: 1.25em;
   padding-left: 1.5em;
 }
 
 .article-prose li {
   margin-bottom: 0.5em;
+}
+
+.article-prose li::marker {
+  color: var(--label-3);
 }
 
 .article-prose ul li {
@@ -128,26 +294,25 @@ body::before {
 }
 
 .article-prose blockquote {
-  border-left: 3px solid var(--color-accent);
+  border-left: 3px solid var(--accent);
   padding-left: 1.25em;
   margin: 1.5em 0;
-  color: var(--color-muted-foreground);
-  font-style: italic;
+  color: var(--label-2);
 }
 
 .article-prose code {
   font-family: var(--font-mono);
-  background: var(--color-card);
-  border: 1px solid var(--color-card-border);
-  border-radius: 4px;
+  background: var(--surface-2);
+  border: 0.5px solid var(--separator);
+  border-radius: var(--radius-xs);
   padding: 0.15em 0.4em;
-  font-size: 0.875em;
+  font-size: 0.85em;
 }
 
 .article-prose pre {
-  background: var(--color-card);
-  border: 1px solid var(--color-card-border);
-  border-radius: 8px;
+  background: var(--surface-2);
+  border: 0.5px solid var(--separator);
+  border-radius: var(--radius-md);
   padding: 1.25em;
   margin: 1.5em 0;
   overflow-x: auto;
@@ -162,18 +327,18 @@ body::before {
 
 .article-prose hr {
   border: none;
-  border-top: 1px solid var(--color-card-border);
+  border-top: 1px solid var(--separator);
   margin: 2em 0;
 }
 
 .article-prose strong {
-  color: var(--color-foreground);
+  color: var(--label);
   font-weight: 600;
 }
 
 .article-prose img {
   max-width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   margin: 1.5em 0;
 }
